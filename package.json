@@ -1,0 +1,22 @@
+{
+  "name": "421pg",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "express-openid-connect": "^2.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "localstorage": "^1.0.1",
+    "localStorage": "^1.0.4",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.15",
+    "request": "^2.88.2"
+  }
+}

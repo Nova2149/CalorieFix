@@ -1,0 +1,19 @@
+.calorie_in
+{
+    background-color:#556B2F;
+    color:white;
+}
+.calorie_out
+{
+  background-color:#FFA500;
+  color:white;
+}
+.calorie_display
+{
+    background-color:#20B2AA;
+    color: white;
+}
+h1{
+    text-align:center;
+    color:white;
+}

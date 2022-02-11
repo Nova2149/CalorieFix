@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/homepage.css">
+    <link rel="stylesheet" href="/css/calorie.css">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../Script/calorie.js"></script>
+   
+
+   
+</head>
+<body>
+    <div class="row">
+        <div class="col-xs-1">
+            <img src="https://t4.ftcdn.net/jpg/03/82/76/31/360_F_382763140_M7YORMuLlKz51zfhuYx6e6NgPINaqY12.jpg" class="logo">
+        </div>
+        <div class="col-xs-9">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="/nutrition">SEARCH FOOD</a>
+                        <a href="/fitness">CALCULATE FITNESS</a>
+                        <a href="/calorie">TRACK CALORIES</a>
+                        <a href="/recipe">RECIPES</a>
+                        <a href="/account-info">ACCOUNT INFO</a>
+                        <a href="/review">REVIEWS</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-xs-2">
+            <button class="btn btn-danger">Logout</button>
+        </div>
+</div>
+    <div class="row">
+        <div class="col-xs-4 calorie_display" onclick="showDailyTracker()">
+            <h1>
+                DAILY TRACKER
+            </h1>
+        </div>
+        <div class="col-xs-4 calorie_in" onclick="showCalorieIn()">
+            <h1>
+                CALORIE IN
+            </h1>
+        </div>
+        <div class="col-xs-4 calorie_out" onclick="showCalorieOut()">
+            <h1>
+                CALORIE OUT
+            </h1>
+        </div>
+    </div>
+    <br>
+    <!--Real Code Starts Here-->
+    <div class="row">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-8">
+            <div id="daily_tracker">
+
+                <div class="row">
+                    <h1>Daily Calorie Tracker</h1>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <label for="user_date">Select Date:</label>
+                    </div>
+                    <div class="col-xs-4">
+                        <input type="date"  id="user_daily_tracker_date" class="form-control">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-xs-2"></div>
+                    <div class="col-xs-2">
+                        <button class="btn btn-danger">Submit</button>
+                    </div>
+                    <div class="col-xs-2"></div>
+                </div>
+            </div>
+               
+
+              
+            
+            <div id="c_in">
+
+               
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <label for="date">Select Date</label>
+                        </div>
+                        <div class="col-xs-4">
+                            <input type="date" class="form-control" id="user_c_in_date">
+                        </div>
+    
+                    </div>
+                    <br>
+                <div class="row">
+                        <div class="col-xs-4">
+                            <label for="time_period">Select Time Period</label>
+                        </div>
+                        <div class="col-xs-4">
+                            <select name="user_time" id="user_time" class="form-control">
+                                <option value="morning">Morning</option>
+                                <option value="afternoon">Afternoon</option>
+                                <option value="evening">Evening</option>
+                            </select>
+                        </div>
+                </div>
+                    <br>
+                <div class="row">
+                        <div class="col-xs-4">
+                            <label for="food_item">Enter Food Item</label>
+                        </div>
+                        <div class="col-xs-4">
+                            <input type="text" class="form-control" id="user_food_item" placeholder="Enter Food Item" >
+                        </div>
+                </div>
+                    <br>
+                <div class="row">
+                        <div class="col-xs-4">
+                            <label for="serving_size">Select Serving Size(In gms)</label>
+                        </div>
+                        <div class="col-xs-4">
+                            <select name="user_serving_size" id="user_serving_size" class="form-control">
+                                <option value="100">100</option> 
+                                <option value="200">200</option>
+                                <option value="300">300</option>
+                                <option value="400">400</option>
+                                <option value="500">500</option>
+                            </select>
+                        </div>
+                </div>
+                    <br>
+                    <br>
+                <div class="row">
+                        <div class="col-xs-2"></div>
+                        <div class="col-xs-2">
+                            <button type="button" class="btn btn-danger" onclick="caloriesIn()">Submit</button>
+                        </div>
+                        <div class="col-xs-2"></div>
+                </div>
+                <br>
+                <div class="row" id="c_in_calories"></div>
+            </div>
+            
+            <div id="c_out">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <label for="select_date">Select Date</label>
+                    </div>
+                    <div class="col-xs-4">
+                        <input type="date" class="form-control" id="user_c_out_date"
+                        >
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <label for="">Select Time Period</label>
+                    </div>
+                    <div class="col-xs-4">
+                        <select name="" id="user_time_period" class="form-control">
+                            <option value="morning">Morning</option>
+                            <option value="afternoon">Afternoon</option>
+                            <option value="evening">Evening</option>
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <label for="duration">
+                            Duration(in Hrs)
+                        </label>
+                    </div>
+                    <div class="col-xs-4">
+                       <select name="user_duration" id="user_duration" class="form-control">
+                           <option value="0.25">0.25</option>
+                           <option value="0.50">0.50</option>
+                           <option value="0.75">0.75</option>
+                       </select>
+                    </div>
+
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <label for="select_workout">Select Workout</label>
+                    </div>
+                    <div class="col-xs-4">
+                        <select name="user_workout" id="user_workout" class="form-control">
+
+
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-xs-2"></div>
+                    <div class="col-xs-2">
+                        <button class="btn btn-danger" type="button"
+                        onclick="caloriesOut()">Submit</button>
+                    </div>
+                    <div class="col-xs-2"></div> 
+                </div>
+                <br>
+               <div class="row" id="cout_amount"></div>
+                
+            </div>
+        </div>
+        <div class="col-xs-2"></div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/homepage.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="/css/review.css">
+    <script src="../Script/review.js"></script>
+   
+</head>
+<body>
+    <div class="row">
+        <div class="col-xs-1">
+            <a href=""></a>
+            <img src="https://t4.ftcdn.net/jpg/03/82/76/31/360_F_382763140_M7YORMuLlKz51zfhuYx6e6NgPINaqY12.jpg" class="logo">
+        </div>
+        <div class="col-xs-9">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="/nutrition">SEARCH FOOD</a>
+                        <a href="/fitness">CALCULATE FITNESS</a>
+                        <a href="/calorie">TRACK CALORIES</a>
+                        <a href="/recipe">RECIPES</a>
+                        <a href="/account-info">ACCOUNT INFO</a>
+                        <a href="/review">REVIEWS</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-xs-2">
+            <button class="btn btn-danger">Logout</button>
+        </div>
+</div>
+<!--Main Content starts here -->
+<div class="row">
+   <div class="col-xs-4"></div>
+   <div class="col-xs-4">
+       <h1 class="review_heading">Your Review Matters....</h1>
+   </div>
+   <div class="col-xs-4"></div>
+</div>
+
+<!--textarea-->
+<div class="row">
+    <div class="col-xs-4"></div>
+    <div class="col-xs-4">
+      <textarea name="" id="review_input" cols="30" rows="10"
+      class="form-control review_text_area"
+      placeholder="Write your review here "></textarea>
+      
+    </div>
+    <div class="col-xs-4"></div>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-xs-4"></div>
+    <div class="col-xs-4 review_submit_button">
+        <button class="btn btn-danger" onclick="submit_review()">Submit</button>
+    </div>
+    <div class="col-xs-4"></div>
+</div>
+</body>
+</html>

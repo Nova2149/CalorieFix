@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calories Out</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="row">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-8">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <label for="select_date">Select Date </label>
+                     </div>
+                     <div class="col-xs-4">
+                         <input type="date" class="form-control"
+                         name="select_date"
+                         id="select_date">
+                     </div>
+
+
+                </div>
+                <br>
+                <div class="row" id="select_workout">
+                    <div class="col-xs-4">
+                        <label for="select_workout">
+                            Select Workout
+                        </label>
+                    </div>
+                    <div class="col-xs-4">
+                        <!--You have to provide the fields here
+                        Code must dynamci written through Javascript-->
+                    </div>
+
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <label for="time_Period">Select Time Period(In Hrs)</label>
+                    </div>
+                    <div class="col-xs-4">
+                        <select  class="form-control"
+                        name="time_period" id="time_period">
+                            <option value="0.25">0.25</option>
+                            <option value="0.50">0.50</option>
+                            <option value="0.75">0.75</option>
+                            <option value="1.00">1.00</option>
+                        </select>
+                    </div>
+ 
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-xs-3"></div>
+                    <div class="col-xs-2">
+                        <button class="btn btn-info">Add</button>
+                    </div>
+                    <div class="col-xs-3"></div>
+                </div>
+                <br>
+                
+                
+            </div>
+        </div>
+        <div class="col-xs-2"></div>
+    </div> 
+    
+</body>
+</html>

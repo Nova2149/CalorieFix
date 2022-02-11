@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/homepage.css">
+    <title>User Info</title>
+
+    <script>
+        $(function()
+        {
+            $.ajax({
+                url:"http://localhost:7000/getAllUsers",
+                type:"GET",
+                dataType:"json",
+                success:function(response)
+                {
+                    console.log(response)
+                    buildTable(response)
+                }
+
+            })
+        })
+        function buildTable(data)
+        {
+            let table=document.getElementById("user_info");
+            let row='';
+            for(let i=0;i<data.length;i++)
+            {
+                row+=`<tr>
+                    <td>${data[i].first_name}</td>
+                    <td>${data[i].last_name}</td>
+                    <td>${data[i].email}</td>
+                    <td>${data[i].phone}</td>
+                    <td>${data[i].address}</td>
+                    <td>${data[i].postal_code}</td>
+                    <td>
+                        <button class="btn btn-danger" type="submit"
+                        onclick="removeUser('${data[i].email}')">
+                            Remove
+                        </button>
+                    </td>
+                    </tr>`
+                    table.innerHTML+=row;
+
+            }
+        }
+        function removeUser(data)
+        {
+            console.log("Inside Remove User")
+            console.log(data)
+            $.ajax({
+                url:"http://localhost:7000/removeUser",
+                type:"POST",
+                dataType:"json",
+                data:{
+                    "user_email":data
+                },
+                success:function(response)
+                {
+                    console.log(response)
+                }
+                
+            })
+        }
+    </script>
+</head>
+<body>
+    <div class="row">
+        <!--Header for the page-->
+        <div class="container">
+            <div class="navbar">
+                <img src="https://t4.ftcdn.net/jpg/03/82/76/31/360_F_382763140_M7YORMuLlKz51zfhuYx6e6NgPINaqY12.jpg" class="logo">
+                <nav>
+                    <ul>
+                        
+                        <li>
+                            <a href="">USER INFO</a>
+                            <a href="">ADD WORKOUT</a>
+                            <a href="">RECIPES</a>
+                            <a href="">REVIEWS</a>
+                        </li>
+                    </ul>
+                </nav>
+    
+                <div class="home_button_nav_panel">
+                    <button class="btn btn-danger">Logout</button>
+                </div>
+    
+                
+    
+            </div>
+        </div>
+    </div>
+
+    <br><br>
+    <div class="row">
+        <div class="col-xs-5"></div>
+        <div class="col-xs-2">
+            <h1>USER INFO</h1>
+        </div>
+        <div class="col-xs-5"></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-8">
+            <table class="table ">
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Postal Code</th>
+                </tr>
+                <tbody id="user_info"></tbody>
+            </table>
+        </div>
+        <div class="col-xs-2"></div>
+       
+    </div>
+    
+</body>
+</html>

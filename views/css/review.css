@@ -1,0 +1,11 @@
+.review_heading
+{
+    text-align:center;
+}
+.review_text_area{
+    resize: none;
+}
+.review_submit_button
+{
+    text-align:right;
+}

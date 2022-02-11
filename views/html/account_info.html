@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AccountInfo Page</title>
+    <link rel="stylesheet" href="/css/homepage.css">
+    <link rel="stylesheet" href="/css/account_info.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<script>
+    $(function()
+    {
+        $.ajax({
+            url:"http://localhost:7000/account-info-all",
+           type:"GET",dataType:"json",
+           success:function(response)
+           {
+               console.log(response)
+               buildUserInfoTable(response)
+           }
+        })
+    })
+
+    function buildUserInfoTable(data)
+    {
+        var table=document.getElementById("user-info")
+        table.innerHTML="";
+        var row=` <label for="first_name">FIRST NAME</label>
+               <input type="text" class="form-control user_input" name="first-name" id="first-name" value=${data[0].first_name} disabled>
+               <br>
+               <label for="last_name">LAST NAME</label>
+               <input type="text" class="form-control user_input" name="last-name" id="last-name" value=${data[0].last_name} disabled>
+               <br>
+               <label for="email">EMAIL</label>
+               <input type="text" class="form-control user_input" name="email" id="email" value=${data[0].email} disabled>
+               <br>
+               <label for="cell">CELL NUMBER</label>
+               <input type="text" class="form-control user_input" name="cell_number" id="cell_number" value=${data[0].phone} disabled>
+               <br>
+               <label for="address">ADDRESS</label>
+             
+               <input class="form-control user_input" name="address user_input" id="address" value='${data[0].address}' disabled>
+               <br>
+               <label for="postal_code">POSTAL CODE</label>
+               <input type="text" class="form-control user_input" name="postal_code" id="postal_code" value=${data[0].postal_code} disabled>
+               <br>
+               <button type="button" class="btn btn-primary edit_button" onclick=EditInfo()>EDIT</button>
+               <button type="button" class="btn btn-success update_button" onclick=UpdateInfo()>UPDATE</button>
+               `;
+               table.innerHTML+=row;
+
+    }
+    function  EditInfo()
+    {   
+        console.log("Edit info clicked successfully")
+       $(".user_input").removeAttr("disabled")
+    
+    }
+    
+    function UpdateInfo()
+    {   
+        console.log("Clicked Update success");
+        
+        let first_name=document.getElementById("first-name").value;
+         let last_name=document.getElementById("last-name").value
+         let email=document.getElementById("email").value
+         let phone=document.getElementById("cell_number").value
+         let address=document.getElementById("address").value
+         let postal_code=document.getElementById("postal_code").value
+         
+       console.log(first_name,last_name,email,phone,address,postal_code)
+       console.log(first_name)
+       
+       $.ajax({
+           url:"http://localhost:7000/update-account-info-all",
+           type:"POST",
+           dataType:"json",
+           data:{
+               "first_name":first_name,
+               "last_name":last_name,
+               "email":email,
+               "phone":phone,
+               "address":address.value,
+               "postal_code":postal_code
+           },
+           success:function(response)
+           {
+
+           }
+       })
+       
+
+
+    }
+</script>
+<body>
+    <div class="row">
+        <div class="col-xs-2">
+            <img src="https://t4.ftcdn.net/jpg/03/82/76/31/360_F_382763140_M7YORMuLlKz51zfhuYx6e6NgPINaqY12.jpg" class="logo">
+        </div>
+        <div class="col-xs-8">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="">SEARCH FOOD</a>
+                        <a href="">CALCULATE FITNESS</a>
+                        <a href="">RECIPES</a>
+                        <a href="">ACCOUNT INFO</a>
+                        <a href="">REVIEWS</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-xs-2">
+            <button class="btn btn-danger">Logout</button>
+        </div>
+    </div>
+    <!--UserInfo-->
+    <div class="container">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-8">
+           <div class="jumbotron">
+               <h1 class="user_info_heading">USER INFO</h1>
+           </div>
+           <div class="user_details" id="user-info">
+              
+
+           </div>
+        </div>
+        <div class="col-xs-2"></div>
+       
+    </div>
+    <!-- User Health Log -->
+    <div class="container">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-8">
+            <div class="jumbotron">
+                <h1 class="user_info_heading">
+                    USER HEALTH LOG
+                </h1>
+            </div>
+            <div class="user_health_details">
+                <label for="bmi">BMI</label>
+                <input type="text" class="form-control medium_input" name="bmi" id="bmi">
+                <br>
+                <label for="BMR">BMR</label>
+                <input type="text" class="form-control medium_input" name="bmr" id="bmr">
+                <br>
+                <label for="calorie_intake">CALORIE INTAKE</label>
+                <input type="text" class="form-control medium-input" name="calorie_intake" id="calorie_intake">
+            </div>
+        </div>
+        <div class="col-xs-2"></div>
+
+    </div>
+
+    <!--Update Password-->
+    <div class="container">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-8">
+            <div class="jumbotron">
+                <h1 class="user_info_heading">UPDATE PASSWORD</h1>
+            </div>
+            <div class="update_password_details">
+                <label for="old_password">ENTER CURRENT PASSWORD</label>
+                <input type="text" class="form-control" name="old_password" id="old_password" placeholder="Enter current Password" required>
+                <br>
+                <label for="new_password">ENTER NEW PASSWORD</label>
+                <input type="text" class="form-control" name="new_password" id="new_password" placeholder="Enter New Password" required>
+                <br>
+                <label for="confirm_Password">CONFIRM PASSWORD</label>
+                <input type="text" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm your New Password"
+                required>
+                <br>
+                <button type="button" class="btn btn-success submit_password">Submit</button>
+            </div>
+        </div>
+        <div class="col-xs-2"></div>
+    </div>
+
+
+    
+</body>
+</html>

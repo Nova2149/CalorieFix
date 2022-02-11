@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Workspace</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="../css/homepage.css">
+    <style>
+        .cc
+        {
+            text-align:center;
+            
+        }
+        .add_workout
+        {
+            padding-top:60px;
+            padding-bottom: 60px;
+        }
+        .section_content
+        {
+            text-decoration: none;
+            text-align:center;
+        }
+        a
+        {
+            text-decoration: none;
+            color:brown;
+
+        }
+        a:hover{
+            text-decoration:none;
+            color:black;
+        }
+        body{
+            font-family: "Roboto",serif;
+        }
+        .add_user_info{
+            padding-bottom:10px;
+            padding-top:10px;
+        }
+        .user_recipe{
+            padding-bottom:10px;
+            padding-top:10px;
+
+        }
+    </style>
+    <script>
+
+    </script>
+</head>
+<body>
+    <div class="row">
+        <!--Header for the page-->
+        <div class="container">
+            <div class="navbar">
+                <img src="https://t4.ftcdn.net/jpg/03/82/76/31/360_F_382763140_M7YORMuLlKz51zfhuYx6e6NgPINaqY12.jpg" class="logo">
+                <nav>
+                   <h1>ADMIN WORKSPACE</h1>
+                </nav>
+    
+                <div class="home_button_nav_panel">
+                    <button class="btn btn-danger">Logout</button>
+                </div>
+    
+                
+    
+            </div>
+        </div>
+    </div>
+
+    <br><br>
+    <div class="row">
+        <div class="col-xs-4 ">
+            <div class="well cc">
+                <h2>CUSTOMER SECTION</h2>
+            </div>
+            <div class="p-3 mb-2 bg-info text-white section_content">
+               <h3 class="add_user_info">
+                   <a href="/adminuinfo">USER INFO</a>
+               </h3>
+               <br>
+               <h3 class="add_user_info">
+                   <a href="">REVIEWS</a>
+               </h3>
+            </div>
+
+        </div>
+        <div class="col-xs-4">
+            <div class="well cc"><h2>
+                WORKOUT SECTION
+            </h2>
+            </div>
+            <div class="p-3 mb-2 bg-warning text-white section_content">
+                <h3 class="add_workout">
+                    <a href="/workout-admin" >ADD WORKOUTS</a>
+                </h3>
+            </div>
+
+        </div>
+        <div class="col-xs-4">
+            <div class="well cc">
+                <h2>
+                    RECIPE SECTION
+                </h2>
+            </div>
+            <div class="p-3 mb-2 bg-success text-white section_content">
+                <div>
+                   <h3 class="user_recipe">
+                       <a href="">EDIT RECIPES</a>
+                   </h3>
+                   <br>
+                   <h3 class="user_recipe">
+                       <a href="/recipe-admin">ADD RECIPES</a>
+                   </h3>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

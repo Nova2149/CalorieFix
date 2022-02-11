@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Workout </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .workout_add_btn
+        {
+            margin-left:250px;
+        }
+    </style>
+    <script>
+        function addNewWorkout()
+        {   
+            console.log("Add Workout button clicked successfully")
+            let workout_name=document.getElementById("Workout_name").value
+            let workout_calories=document.getElementById("workout_calories").value
+            let workout_time_period=document.getElementById("workout_time_period").value
+            let workout_image_url=document.getElementById("workout_image_url").value
+            let workout_description=document.getElementById("workout_description").value
+            
+            console.log(workout_name)
+            console.log(workout_calories)
+            console.log(workout_time_period)
+            console.log(workout_image_url)
+            console.log(workout_description)
+            let counter=0;
+
+            if(workout_name===""||workout_name==null){ alert("Missing Fields"); counter=1;}
+            else if(workout_calories===""||workout_calories==null){alert("Missing Fields"); counter=1;}
+            else if(workout_time_period===""||workout_time_period==null){alert("Missing Fields"); counter=1;}
+            else if(workout_image_url===""||workout_image_url==null){alert("Missing Fields"); counter=1;}
+            else if(workout_description===""||workout_description==null){alert("Missing Fields"); counter=1;}
+            
+
+            else if(counter==0)
+            {
+                $.ajax({
+                    url:"http://localhost:7000/add-workout",
+                    type:"POST",
+                    dataType:"json",
+                    data:{
+                        "workout_name":workout_name,
+                        "workout_calories":workout_calories,
+                        "workout_time_period":workout_time_period,
+                        "workout_image_url":workout_image_url,
+                        "workout_description":workout_description
+                    },
+                    success:function(response)
+                    {
+                        console.log(response)
+
+                    }
+
+                })
+            }
+            else{
+                //Do Nothing
+            }
+
+            
+        }
+    </script>
+    </head>
+    <body>
+    <div class="row">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-8">
+            <div class="container">
+               <div class="row">
+                   <h1>ADD NEW WORKOUT</h1>
+               </div>
+               <br>
+
+               <div class="row">
+                   <div class="col-xs-2"></div>
+                   <div class="col-xs-4">
+                       Workout Name
+                   </div>
+                   <div class="col-xs-4">
+                       <input type="text" class="form-control" placeholder="Enter the Name of Workout" name="wokrout_name" id="Workout_name">
+                   </div>
+               </div>
+               <br>
+
+               <div class="row">
+                   <div class="col-xs-2"></div>
+                   <div class="col-xs-4">
+                       Workout Calories
+                   </div>
+                   <div class="col-xs-4">
+                       <input type="text" class="form-control" placeholder="Enter the calories that will be burned" name="workout_calories"
+                       id="workout_calories">
+                   </div>
+               </div>
+               <br>
+               <div class="row">
+                   <div class="col-xs-2"></div>
+                   <div class="col-xs-4">
+                    Workout Time Period(in hrs)
+                   </div>
+                   <div class="col-xs-4">
+                       <input type="text" class="form-control"  placeholder="Enter the Workout Time Period"
+                       name="workout_time_period"
+                       id="workout_time_period"
+                       >
+
+                   </div>
+               </div>
+               <br>
+
+               <div class="row">
+                   <div class="col-xs-2"></div>
+                   <div class="col-xs-4">
+                       Workout Image Url
+                   </div>
+                   <div class="col-xs-4">
+                       <input type="text" class="form-control" placeholder="Workout Image Url" name="workout_image_url" id="workout_image_url">
+                   </div>
+               </div>
+               <br>
+               <div class="row">
+                   <div class="col-xs-2"></div>
+                   <div class="col-xs-4">
+                       Workout Description
+                   </div>
+                   <div class="col-xs-4">
+                       <textarea class="form-control" placeholder="Enter the description about workout" style="resize:none;" 
+                       name="" id="workout_description" cols="45" rows="10"></textarea>
+                   </div>
+               </div>
+               <br>
+               <br>
+               <div class="row">
+                   <div class="col-xs-2"></div>
+                   <div class="col-xs-4">
+                       <button class="btn btn-warning workout_add_btn" type="button" onclick="addNewWorkout()" >Add Workout</button>
+                   </div>
+                   <div class="col-xs-4"></div>
+               </div>
+            </div>
+        </div>
+        <div class="col-xs-2"></div>
+    </div>
+
+
+    
+</body>
+</html>

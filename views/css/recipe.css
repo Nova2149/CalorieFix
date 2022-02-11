@@ -1,0 +1,138 @@
+.grid-container
+{
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+.grid-container>div{
+    border:0.5px solid black;
+   margin: 5px 5px 5px 5px;
+}
+.item{
+    text-align:center;
+    font-size: 25px;
+    font-weight:bold;
+}
+.productImage
+{
+    margin-left:150px;
+}
+.image_div
+{
+    text-align: center;
+}
+.btn_div
+{
+    text-align:center;
+}
+h1 a{
+    font-size:27px;
+
+}
+.recipe_type h1{
+    text-align: center;
+}
+.vegan
+{
+background-color: #556B2F;
+
+}
+.non_veg
+{
+   background-color:#FFA500;
+  
+}
+.veg{
+    background-color: 	#20B2AA;
+    
+
+}
+.vegan h1 a {
+    color:white;
+
+}
+.veg h1 a 
+{
+    color:white;
+}
+.non_veg h1 a{
+    color:White;
+
+}
+.vegan h1 a:hover{
+    text-decoration: none;
+    text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+}
+.non_veg h1 a:hover{
+    text-decoration: none;
+    text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+
+}
+.veg h1 a:hover{
+    text-decoration: none;
+    text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+
+}
+*, *::after, *::before {
+    box-sizing: border-box;
+  }
+  
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10;
+    background-color: white;
+    width: 500px;
+    max-width: 80%;
+  }
+  
+  .modal.active {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  
+  .modal-header {
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black;
+  }
+  
+  .modal-header .title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .modal-header .close-button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .modal-body {
+    padding: 10px 15px;
+  }
+  
+  #overlay {
+    position: fixed;
+    opacity: 0;
+    transition: 200ms ease-in-out;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .5);
+    pointer-events: none;
+  }
+  
+  #overlay.active {
+    opacity: 1;
+    pointer-events: all;
+  }

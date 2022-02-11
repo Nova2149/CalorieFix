@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/homepage.css">
+        <link rel="stylesheet" href="/css/nutrition.css">
+        <title>Nutritional Value</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script>
+            function SearchFood()
+            {
+                const food_name=document.getElementById("food_name").value;
+                console.log(food_name)
+                var counter=0;
+
+                if(food_name===""||food_name==null)
+                {
+                    alert("Please enter the Name of the Fodd");
+                    counter=1
+                }
+                else if(!/^[a-zA-Z_]\w+/.test(food_name))
+                {
+                    alert("Invalid Food name")
+                    counter=1;
+                }
+                else{
+                    //Do Nothing
+                }
+
+                if(counter==0)
+                {
+                    $.ajax({
+                        url:"http://localhost:7000/nutrition",
+                        type:"POST",
+                        data:{
+                            "food_name":food_name
+                        },
+                        dataType:"json",
+                        success:function(response)
+                        {
+                            if(response.items===""||response.items==null)
+                            {
+                                alert("Sorry,We cant give you info for this product")
+                            }
+                            else if(response.items.length===0)
+                            {
+                                alert("Sorry we cannot give you info for this product")
+                            }
+                            else{
+                                console.log(response.items)
+                                getData(response.items)
+
+
+                            }
+                        }
+
+                    })
+
+                }
+            }
+            function getData(data)
+            {   
+                var table=document.getElementById("food-info")
+                table.innerHTML="";
+                var row=`
+                <div class="col-xs-2"></div>
+                    <div class="col-xs-8">
+
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label for="food_name">FOOD NAME</label>
+                            </div>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control input_size" name="food_name" id="food_name" value='${data[0].name}'>
+                            </div>
+
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label for="serving_size">SERVING SIZE</label>
+                            </div>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control input_size" name="serving_size" id="serving_size" value=${data[0].serving_size_g}>
+                            </div>
+
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label for="calories">CALORIES</label>
+                            </div>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control input_size" name="calories" id="calories" value=${data[0].calories}>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label for="sugar">SUGAR</label>
+                            </div>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control input_size" name="sugar" id="sugar" value=${data[0].sugar_g}>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label for="protien">PROTEIN</label>
+                            </div>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control input_size" name="protein" id="protein" value=${data[0].protein_g}>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label for="carbohydrate">CARBOHYDRATE</label>
+                            </div>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control input_size" name="carbohydrate" id="carbohydrate" value=${data[0].carbohydrates_total_g}>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label for="fat">FAT</label>
+                            </div>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control input_size" name="fat" id="fat" value=${data[0].fat_total_g}>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label for="sugar">CHOLESTEROL</label>
+                            </div>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control input_size" name="cholesterol" id="cholesterol" value=${data[0].cholesterol_mg}>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label for="sodium">SODIUM</label>
+                            </div>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control input_size" name="sodium" id="sodium" value=${data[0].sodium_mg}>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <label for="fiber">FIBER</label>
+                            </div>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control input_size" name="fiber" id="fiber" value=${data[0].fiber_g}>
+                            </div>
+                        </div>
+
+                `;
+                table.innerHTML+=row;
+            }
+
+        </script>
+</head>
+<body>
+        <div class="row">
+                <div class="col-xs-1">
+                    <img src="https://t4.ftcdn.net/jpg/03/82/76/31/360_F_382763140_M7YORMuLlKz51zfhuYx6e6NgPINaqY12.jpg" class="logo">
+                </div>
+                <div class="col-xs-9">
+                    <nav>
+                        <ul>
+                            <li>
+                                <a href="/nutrition">SEARCH FOOD</a>
+                                <a href="/fitness">CALCULATE FITNESS</a>
+                                <a href="/calorie">TRACK CALORIES</a>
+                                <a href="/recipe">RECIPES</a>
+                                <a href="/account-info">ACCOUNT INFO</a>
+                                <a href="/review">REVIEWS</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-xs-2">
+                    <button class="btn btn-danger">Logout</button>
+                </div>
+            </div>
+            <!--Nutrition Details-->
+            <div class="container">
+                <div class="col-xs-2"></div>
+                <div class="col-xs-8">
+                    <div class="well">
+                       <h1 class="nutrition_heading">NUTRITIONAL INFO</h1>
+                    </div>
+                    <div class="food_details">
+                        <label for="food_name">FOOD NAME: </label>
+                        <input type="text" placeholder="Search for  Food Name" name="food_name"
+                        id="food_name" class="form-control">
+                        <br>
+                        <button class="btn btn-success food_search_button" onclick=SearchFood()>Submit</button>
+                    </div>
+                </div>
+                <div class="col-xs-2"></div>
+            </div>
+                <br><br>
+
+                <div class="container" id="food-info">
+                 
+                            
+                         
+                           
+                           
+                           
+
+        
+        
+                        
+                    </div>
+                    <div class="col-xs-2"></div>
+                    
+                    
+                </div>
+
+            
+           
+        
+</body>
+</html>

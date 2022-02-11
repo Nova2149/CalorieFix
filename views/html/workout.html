@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/homepage.css">
+    <title>Workout Info</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        .workout_name
+        {
+           padding-left: 50p5;
+        }
+    </style>
+    <script>
+        $(function()
+        {
+            console.log("Get all the workouts from the JSON File")
+            $.ajax(
+                {
+                    url:"http://localhost:7000/get-workout",
+                    type:"GET",
+                    dataType:"json",
+                    success:function(response)
+                    {
+                        console.log(response)
+                        buildTable(response)
+                    }
+                }
+            )
+        })
+        function buildTable(data)
+        {
+            var table=document.getElementById("selectWorkout")
+            var row=''
+            row+=`
+            <select name='workout'id='workout' class='form-control'>`;
+
+            for(const val of data)
+            {
+                row+=`<option value='${val}'>${val}</option>`
+            }
+            
+                
+            row+=`<select>`;
+            
+            table.innerHTML+=row;
+            
+        }
+
+        function searchWorkout()
+        {
+            console.log("Search Workout clicked Successfully")
+            var workoutName=document.getElementById("workout").value
+            console.log(workoutName)
+            $.ajax({
+                url:"http://localhost:7000/workout-detail",
+                type:"POST",
+                dataType:"json",
+                data:{
+                    "workoutName":workoutName
+                },
+                success:function(response)
+                {
+                    console.log(response)
+                    buildWorkoutTable(response)
+
+                }
+            })
+        }
+        function buildWorkoutTable(data)
+        {
+            var table=document.getElementById("workout-data")
+            var row=``;
+            table.innerHTML=``;
+
+            row=`
+            <div class="container">
+    <div class="row">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-4 workout_name" >
+            <h1>${data[0].Workout_Name}</h1>
+        </div>
+        <div class="col-xs-2"></div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-4">
+           <img src="${data[0].Workout_Image}" alt="" width="250px" height="250px">
+        </div>
+        <div class="col-xs-2"></div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-4">
+        <label for="recipe_name">Calories</label>
+        </div>
+        <div class="col-xs-4">
+        <input type="text" disabled value='${data[0].Workout_Calories}' disabled>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-4">
+        <label for="recipe_name">Time Duration in Hours</label>
+        </div>
+        <div class="col-xs-4">
+        <input type="text" disabled value='${data[0].Workout_Time_Period}' disabled>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-4">
+            <label for="">Description</label>
+        </div>
+        <div class="col-xs-2"></div>
+    </div>
+    <br>
+    <div class="row">
+        <textarea name="" id="description_text_area" cols="100" rows="10" disabled>${data[0].Workout_Description}</textarea>
+    </div>
+    <br>
+  
+
+    </div>`
+    table.innerHTML+=row;
+
+            
+
+            
+            
+       
+
+
+        }
+    </script>
+</head>
+<body>
+    <div class="row">
+        <div class="col-xs-2">
+            <img src="https://t4.ftcdn.net/jpg/03/82/76/31/360_F_382763140_M7YORMuLlKz51zfhuYx6e6NgPINaqY12.jpg" class="logo">
+        </div>
+        <div class="col-xs-8">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="">SEARCH FOOD</a>
+                        <a href="">CALCULATE FITNESS</a>
+                        <a href="">RECIPES</a>
+                        <a href="">ACCOUNT INFO</a>
+                        <a href="">REVIEWS</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-xs-2">
+            <button class="btn btn-danger">Logout</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-8">
+           
+
+                <div class="row">
+                    <div class="col-xs-4">
+                        <label for="select_workout">Select Workout</label>
+                    </div>
+                    <div class="col-xs-4" id="selectWorkout"></div>
+
+
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-xs-3"></div>
+                    <div class="col-xs-2">
+                        <button class="btn btn-primary" onclick="searchWorkout()">Search</button>
+                    </div>
+                    <div class="col-xs-3"></div>
+                </div>
+                <br>
+                <br>
+
+            
+               
+           
+        </div>
+        <div class="col-xs-2"></div>
+    </div>
+
+    <div class="row" id="workout-data">
+        
+    </div>
+   
+<!--Temp Code Starts Here -->
+
+
+
+<!--Temp Code Ends Here-->
+
+    
+</body>
+</html>

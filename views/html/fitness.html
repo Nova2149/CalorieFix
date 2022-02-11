@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/homepage.css">
+        <link rel="stylesheet" href="/css/fitness.css">
+        <title>Calculate Fitness</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+                $(document).ready(function()
+                {
+                var user_height_type= $("#user_height_type option:selected").text();
+                console.log(user_height_type)
+
+                var user_weight_type=$("#user_weight_type option:selected").text();
+                console.log(user_weight_type)
+
+           
+
+
+                })
+
+                function calculate_fitness_metrices()
+               {        
+                       let total_bmi=0
+                       let total_bmr=0
+
+                       console.log("Button clicked successfully");
+                       //user_height
+                       var user_height=document.getElementById("user_height").value;
+                       console.log("User Height "+user_height)
+                       //user_weight
+                       var user_weight=document.getElementById("user_weight").value;
+
+                       console.log("User Weight "+user_weight)
+                       //user_age
+                       var user_age=document.getElementById("user_age").value;
+                       console.log("User age"+user_age)
+
+                       //Get Gender
+                       var user_gender=document.querySelector("input[name=optradio]:checked").value
+                       console.log(user_gender)
+                       //Error Element
+                       const errorElement=document.getElementById("error")
+                
+                       
+                        // Using this variable for checking the validation
+                        let counter=0
+                        //Empty Validation
+                        let messages=[]
+                       if(user_height===''||user_height==null)
+                       {
+                                messages.push("Height is required")
+                                counter=1
+                       }
+                       else{
+                                if((!/^[0-9][0-9.]+$/.test(user_height)))
+                        {
+                                messages.push("Invalid Height")
+                                counter=1
+
+                        }
+
+                       }
+                       if(user_weight===''||user_weight==null)
+                       {
+                               messages.push("Weight is required")
+                               counter=1
+                       }
+                       else
+                       {
+                                if(!/^[0-9][0-9.]+$/.test(user_weight))
+                                {
+                                messages.push("Invalid Weight")
+                                counter=1
+
+                                }
+                       }
+                       if(user_age===''||user_age==null)
+                       {
+                               messages.push("Age is required")
+                               counter=1
+                       }
+                       else
+                       {
+                                if(!/^[0-9]+$/.test(user_age))
+                                {
+                                messages.push("Invalid Age")
+                                counter=1
+                                }
+                       }
+                       //Validation for numbers
+                       //Validation for Height
+                       
+                         var user_height_type= $("#user_height_type option:selected").text();
+                        console.log(user_height_type)
+
+                        var user_weight_type=$("#user_weight_type option:selected").text();
+                         console.log(user_weight_type)
+                         if((user_height_type.toLowerCase()=="cm" && user_weight_type.toLowerCase()=="lbs")
+                         ||(user_height_type.toLowerCase()=="inches" && user_weight_type.toLowerCase()=="kg"))
+                         {
+                                messages.push("Please select Metric Way(Kg/cm) or Imperial Way (lbs/in)")
+                                counter=1
+                         }
+
+                       if(counter==0)
+                       {
+                               if((user_height_type.toLowerCase()=="cm" && user_weight_type.toLowerCase()=="kg"))
+                               {
+                                       const height=parseFloat(user_height)
+                                       console.log(user_height)
+                                       const weight=parseFloat(user_weight)
+                                       console.log(user_weight)
+                                       const age=parseInt(user_age)
+                                       console.log(user_age)
+
+                                        //BMI (metric) = 1.3 x weight (kg) / height (m)2.5
+                                       const bmi_metric=(user_weight/user_height/user_height)*10000
+                                       console.log(bmi_metric)
+                                       total_bmi=bmi_metric.toFixed(2)
+                                      
+                                      // https://www.medicinenet.com/what_is_the_formula_to_calculate_bmr/article.htm
+                                      // Mifflin-St Jeor formula to calculate their BMR:
+                                      //Male BMR = (9.99 × weight [kg]) + (6.25 × height [cm]) − (4.92 × age [years]) + 5
+                                       //Female BMR = (9.99 × weight [kg]) + (6.25 × height [cm]) − (4.92 × age [years]) − 161
+
+                                       let bmr_metric=0
+                                      if(user_gender=="male")
+                                      {
+                                        bmr_metric=(9.99 * user_weight) + (6.25 * user_height) - (4.92 *user_age) + 5
+                                        console.log(bmr_metric)
+                                        total_bmr=bmr_metric.toFixed(2)
+                                      }
+                                      if(user_gender=="female")
+                                      {
+
+                                        bmr_metric= (9.99 * user_weight) + (6.25 * user_height) - (4.92 *user_age) -161
+                                        console.log(bmr_metric)
+                                        total_bmr=bmr_metric.toFixed(2)
+                                      }
+                                       
+
+
+                               }
+                               if((user_height_type.toLowerCase()=="inches" && user_weight_type.toLowerCase()=="lbs"))
+                               {        
+                                       let  bmi_imperial=user_weight/(user_height*user_height)*703
+                                       console.log(bmi_imperial)
+                                       total_bmi=bmi_imperial.toFixed(2)
+
+                                        let bmr_imperial=0
+                                       if(user_gender=="male")
+                                       {
+                                        // 66 + (6.23 × weight in pounds) + (12.7 × height in inches) − (6.8 × age in years)
+                                        bmr_imperial=66+(6.23*user_weight)+(12.7*user_height)-(6.8*user_age)
+                                        console.log(bmr_imperial)
+                                        total_bmr=bmr_imperial.toFixed(2)
+                                       }
+                                       if(user_gender=="female")
+                                       {        
+                                               //655 + (4.35 × weight in pounds) + (4.7 × height in inches) − (4.7 × age in years)
+                                        bmr_imperial=655+(4.35*user_weight)+(4.7*user_height)-(4.7*user_age)
+                                        console.log(bmr_imperial)
+                                        total_bmr=bmr_imperial.toFixed(2)
+                                       }
+                               }
+
+
+                       }
+                       errorElement.innerText=messages.join(',\n')
+
+                        buildFMatrix(total_bmi,total_bmr)
+
+
+                      
+
+               }
+
+               function buildFMatrix(bmi,bmr)
+               {
+                var table=document.getElementById("myfitness");
+                table.innerHTML="";
+                var row=`<div class="row">
+                                <div class="col-xs-1">
+                                        <label for="bmi">BMI</label>
+                                </div>
+                                <div class="col-xs-1"></div>
+                                <div class="col-xs-5">
+                                        <input type="text"
+                                        class="form-control"
+                                        id="result_bmi"
+                                        name="result_bmi"
+                                        value=${bmi}>
+                                </div>
+                                
+
+                        </div>
+                        <br>
+                        <div class="row">
+                                <div class="col-xs-1">
+                                        <label for="result_bmr">BMR</label>
+                                </div>
+                                <div class="col-xs-1"></div>
+                                <div class="col-xs-5">
+                                        <input type="text"
+                                        class="form-control"
+                                        id="result_bmr"
+                                        name="result_bmr"
+                                        value=${bmr}>
+                                </div>
+                                
+                        </div>
+                        <div class="row">
+                                <button class="btn btn-light">Add to Your Profile</button>
+                        </div>`;
+                        table.innerHTML+=row;
+
+
+               }
+
+                  
+
+
+
+
+        
+        </script>
+</head>
+]
+<body>
+        <div class="row">
+                <div class="col-xs-1">
+                    <img src="https://t4.ftcdn.net/jpg/03/82/76/31/360_F_382763140_M7YORMuLlKz51zfhuYx6e6NgPINaqY12.jpg" class="logo">
+                </div>
+                <div class="col-xs-9">
+                    <nav>
+                        <ul>
+                            <li>
+                                <a href="/nutrition">SEARCH FOOD</a>
+                                <a href="/fitness">CALCULATE FITNESS</a>
+                                <a href="/calorie">TRACK CALORIES</a>
+                                <a href="/recipe">RECIPES</a>
+                                <a href="/account-info">ACCOUNT INFO</a>
+                                <a href="/review">REVIEWS</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-xs-2">
+                    <button class="btn btn-danger">Logout</button>
+                </div>
+        </div>
+        <div class="container">
+                <div class="col-xs-2"></div>
+                <div class="col-xs-8">
+                        <div class="row fitness_heading">
+                                <h1 class="fitness_h1">CALCULATE BMI AND BMR</h1>
+
+                        </div>
+                        <br>
+
+                        <!--Error Showing code Starts Here-->
+                        <div id="error"></div>
+
+                        <!--Error Showing code Ends Here-->
+                        <div class="row">
+                                <div class="col-xs-3">Enter Height</div>
+                                <div class="col-xs-3">
+                                        <input type="text"
+                                        class="form-control"
+                                        id="user_height"
+                                        name="user_height"
+                                        placeholder="Enter Height"
+                                        required>
+                                </div>
+                                <div class="col-xs-2">
+                                        
+                                        <!--You have to enter Drop Down Here-->
+                                        <select class="select" name="" id="user_height_type">
+                                                <option value="inches">Inches</option>
+                                                <option value="cm">cm</option>
+                                        </select>
+                                </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                                <div class="col-xs-3">
+                                        Enter Weight
+                                </div>
+                                <div class="col-xs-3">
+                                        <input type="text"
+                                        class="form-control"
+                                        id="user_weight"
+                                        name="user_weight"
+                                        placeholder="Enter Weight"
+                                        required>
+                                </div>
+                                <div class="col-xs-2">
+                                        <select class="select" name="" id="user_weight_type">
+                                                <option value="kg">Kg</option>
+                                                <option value="lbs">lbs</option>
+                                        </select>      
+                                </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                                <div class="col-xs-3">
+                                        Enter Age
+
+                                </div>
+                                <div class="col-xs-3">
+                                        <input type="text"
+                                        class="form-control"
+                                        id="user_age"
+                                        name="user_age"
+                                        placeholder="Enter Age"
+                                        required>
+                                </div>
+                                <div class="col-xs-2"></div>
+
+                        </div>
+                        <br>
+                        <div class="row">
+                                <div class="col-xs-3">
+                                        Select Gender
+                                </div>
+                                <div class="col-xs-3">
+                                        <div class="radio">
+                                              <label>
+                                                <input type="radio"
+                                                name="optradio"
+                                                value="male"
+                                                checked>
+                                                Male
+                                        </label>
+                                             
+
+                                        </div>
+                                </div>
+                                <div class="col-xs-2">
+                                        <div class="radio">
+                                                        <label>
+                                                        <input type="radio"
+                                                        name="optradio"
+                                                        value="female"
+                                                        >
+                                                        Female
+                                                </label>
+                                             
+                                        </div>
+                                  
+                                </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                                <div class="col-xs-3"></div>
+                                <div class="col-xs-3">
+                                        <button type="submit"
+                                        class="btn btn-warning"
+                                        id="calculate_fitness"
+                                        onclick=calculate_fitness_metrices()>Submit</button>
+                                </div>
+                                <div class="col-xs-2"></div>
+
+                        </div>
+                </div>
+                <div class="col-xs-2"></div>
+
+        </div>
+        <br>
+
+        <div class="container">
+                <div class="col-xs-2"></div>
+                <div class="col-xs-8">
+                        <div class="row fitness_heading">
+                                <h2>RESULT</h2>
+                        </div>
+                        <br>
+                        <div class="row" id="myfitness">
+
+
+                        </div>
+                        
+                      
+                </div>
+                <div class="col-xs-2"></div>
+        </div>
+
+
+</body>
+</html>

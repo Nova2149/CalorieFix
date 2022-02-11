@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Home Page</title>
+    <link rel="stylesheet" href="../css/homepage.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../Script/home.js"></script>
+    <script>
+        function register_user()
+        {
+            console.log("register_user clicked successfully")
+            window.location.href="/register"
+        }
+
+        function login_user()
+        {
+            console.log("login_user clicked successfully")
+            window.location.href="/register"
+        }
+    </script>
+</head>
+<body>
+    <div class="row">
+        <div class="col-xs-1">
+            <img src="https://t4.ftcdn.net/jpg/03/82/76/31/360_F_382763140_M7YORMuLlKz51zfhuYx6e6NgPINaqY12.jpg" class="logo">
+        </div>
+        <div class="col-xs-9">
+            <nav>
+                <ul>
+                    <li>
+                        <a onclick="searchFood()">SEARCH FOOD</a>
+                        <a onclick="calculateFitness()">CALCULATE FITNESS</a>
+                        <a onclick="trackCalories()">TRACK CALORIES</a>
+                        <a onclick="workouts()">WORKOUT</a>
+                        <a onclick="recipes()">RECIPES</a>
+                        <a onclick="accountInfo()">ACCOUNT INFO</a>
+                        <a onclick="review()">REVIEWS</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-xs-2">
+            <button class="btn btn-primary" onclick="register_user()">SIGNUP</button>
+                <button class="btn btn-success" onclick="login_user()">LOGIN</button>
+        </div>
+    </div>
+
+    <div class="conatiner">
+        <div class="col-xs-6">
+            <h1 class="home_page_heading">
+                Earn the Greatest Wealth of your life through Calorie Fix</h1>
+        </div>
+        <div class="col-xs-6">
+            <img src="https://static.wixstatic.com/media/9c4080_bb8ff55e15bb4619afaf366a8e028724~mv2.jpg/v1/fill/w_580,h_500,al_c,q_90/9c4080_bb8ff55e15bb4619afaf366a8e028724~mv2.jpg" alt=""
+            class="home_page_image">
+        </div>
+    </div>
+
+    <div class="conatainer">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-8">
+            <h1 class="about_heading">
+                About Calorie Fix
+            </h1>
+            <br>
+            <p class="about_p">Calorie Fix is a digital health and wellness platform that provides services such as 
+                Calorie Tracking ,Diet plans,Food Calorimetry and workout aid.
+                It provides its users with such utilities that it keeps them engaged and motivated
+                in living a healthy lifestyle
+            </p>
+        </div>
+        <div class="col-xs-2"></div>
+    </div>
+
+
+    <div class="container footer-container">
+        <div class="col-xs-4">
+            <span>
+                <img src="https://t4.ftcdn.net/jpg/03/82/76/31/360_F_382763140_M7YORMuLlKz51zfhuYx6e6NgPINaqY12.jpg" class="logo_footer">
+                <p class="headquarters">2130 St. Henry  Montreal Quebec</p>
+            </span>
+        </div>
+        <div class="col-xs-8">
+            <span>
+                <p class="copyright_footer">CalorieFix Health Platform Ⓒ </p>
+            </span>
+
+        </div>
+    </div>
+    
+</body>
+</html>

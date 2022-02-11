@@ -1,0 +1,131 @@
+*
+{
+    margin:0;
+    padding:0;
+    font-family:'Roboto',sans-serif
+}
+
+.conatiner
+{
+    width:100%;
+    height:100vh;
+   
+}
+.navbar
+{
+    height: 22%;
+    display: flex;
+    align-items: center;
+    
+}
+.logo
+{
+    width:160px;
+    height:160px;
+    cursor:pointer;
+    padding-left:10px;
+    padding-right:10px;
+
+}
+nav{
+    flex:1;
+    text-align:center;
+}
+nav ul li{
+    list-style:none;
+    display:inline-block;
+   
+
+}
+nav ul li a{
+    text-decoration:none;
+    color:black;
+    font-size:18px;
+    padding-left:20px;
+}
+.signup_button
+{
+    color:white;
+    background-color:darkcyan;
+    border-radius:4px;
+    font-size:20px;
+    padding:10px;
+    
+}
+.login_button
+{
+    color:white;
+    background-color:darkgreen;
+    border-radius:4px;
+    font-size:20px;
+    padding:10px;
+}
+.home_button_nav_panel
+{
+    padding-right:30px;
+
+}
+.row
+{
+    display:flex;
+    height:88%;
+    align-items:center;
+}
+.col
+{
+    flex-basis:50%;
+}
+.home_page_heading
+{
+    padding-top:170px;
+}
+.home_page_image
+{
+ 
+    border:0.5px solid black;
+    margin-top:80px;
+    width:95%;
+}
+.about_heading
+{
+    text-align: center;
+    
+}
+.about_p
+{
+    text-align:center;
+    font-size:25px;
+}
+.headquarters
+{
+    padding-top:15px;
+    font-size:15px;
+}
+.logo_footer
+{
+    width:200px;
+    height:160px;
+}
+.footer-container
+{
+    padding-top:25px;
+}
+.copyright_footer
+{
+    text-align:center;
+}
+a:hover{
+    text-decoration:none;
+    color:black;
+}
+a{
+    color:brown;
+}
+ul li a:hover{
+    text-decoration:none;
+    color:black;
+
+}
+ul li a{
+    color:black;
+}

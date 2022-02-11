@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Document</title>
+    <script>
+        $.ajax({
+            url:"http://localhost:7000/current-recipe",
+            type:"GET",
+            dataType:"json",
+            success:function(response)
+            {
+                console.log(response)
+                buildTable(response)
+            }
+        })
+        function buildTable(data)
+        {
+            let table=document.getElementById("describe")
+            table.innerHTML="";
+            let row=`
+
+            <div class="container">
+            <div class="row">
+                <div class="col-xs-2"></div>
+                <div class="col-xs-4">
+                    <h1>${data[0].recipe_name}</h1>
+                </div>
+                <div class="col-xs-2"></div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-xs-2"></div>
+                <div class="col-xs-4">
+                   <img src="${data[0].recipe_image_url}" alt="" width="200px" height="200px">
+                </div>
+                <div class="col-xs-2"></div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-xs-4">
+                <label for="recipe_name">Calories</label>
+                </div>
+                <div class="col-xs-4">
+                <input type="text" disabled value='${data[0].recipe_calories}'>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-xs-4">
+                <label for="recipe_name">Serving Size</label>
+                </div>
+                <div class="col-xs-4">
+                <input type="text" disabled value='${data[0].recipe_serving_size}'>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-xs-2"></div>
+                <div class="col-xs-4">
+                    <label for="">Description</label>
+                </div>
+                <div class="col-xs-2"></div>
+            </div>
+            <br>
+            <div class="row">
+                <textarea name="" id="description_text_area" cols="100" rows="10" disabled>${data[0].recipe_description}</textarea>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-xs-3"></div>
+                <div class="col-xs-2">
+                    <button class="btn btn-success" onclick="goBack()">Go Back</button>
+                </div>
+                <div class="col-xs-3"></div>
+                
+        </div>
+        
+
+
+
+            `;
+            table.innerHTML+=row;
+
+        }
+        function goBack()
+        {
+
+            window.location.href="/recipe"
+        }
+
+    </script>
+    <style>
+ 
+
+    </style>
+</head>
+<body>
+
+    <div class="row" id="describe">
+        
+    </div>
+</body>
+</html>

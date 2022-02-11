@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Admin Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .recipe_btn
+        {
+            text-align:center;
+            margin-left:350px;
+        }
+    </style>
+    <script>
+
+        function submitRecipe()
+        {
+            console.log("Recipe Clicked Successfully")
+            let recipeName=document.getElementById(recipe_name)
+            let recipeCalories=document.getElementById(recipe_calories)
+
+            let recipeServingSize=document.getElementById(recipe_serving_size)
+            let recipeImageUrl=document.getElementById(recipe_image_url)
+            let recipeType=document.getElementById("recipe_type")
+            let recipeDescription=document.getElementById(recipe_serving_size);
+            let counter=0;
+            if(recipeName===""||recipeName==null){
+                counter=1;
+                alert("Missing Fields")
+
+            }
+            if(recipeCalories===""||recipeCalories==null)
+            {
+                counter=1;
+                alert("Missing Fields")
+            }
+            if(recipeType===""||recipeTyep==null)
+            {
+                counter=1;
+                alert("Missing Fields")
+            }
+            if(recipeDescription===""||recipeDescription==null)
+            {
+                counter=1;
+                alert("Missing Fields")
+            }
+            if(recipeServingSize===""||recipeServingSize==null)
+            {
+                counter=1;
+                alert("Missing Fields")
+            }
+            if(recipeImageUrl===""||recipeImageUrl==null)
+            {
+                counter=1;
+                alert("Missing Fields")
+
+            }
+            if(counter==0)
+            {
+                $.ajax({
+                    url:"http://localhost:7000/add-recipe",
+                    type:"POST",
+                    dataType:"json",
+                    data:{
+                        "recipe_name":recipeName,
+                        "recipe_calories":recipeCalories,
+                        "recipe_type":recipeType,
+                        "recipe_description":recipeDescription,
+                        "recipe_serving_size":recipeServingSize,
+                        "recipe_image_url":recipeServingSize,
+                        
+
+                    },
+                    success:function(response)
+                    {
+                        console.log(response)
+                    }
+                })
+            }
+
+
+
+        }
+
+    </script>
+</head>
+<body>
+    <div class="row">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-8">
+            <div class="container">
+
+                <div class="row">
+
+                    <div class="col-xs-2">
+                        <label for="recipe_name">
+                           Recipe Name
+                        </label>
+                    </div>
+                    <div class="col-xs-6">
+                        <input class="form-control" type="text" placeholder="Enter Recipe Name" name="recipe_name" id="recipe_name">
+                    </div>
+
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <label for="recipe_type">
+                            Recipe Type
+                        </label>
+                    </div>
+                    <div class="col-xs-6">
+
+                        <select class="form-control" name="recipe_type" id="recipe_type">
+                            <option value="vegan">Vegan</option>
+                            <option value="non_veg">Non Vegetarian</option>
+                            <option value="veg">Vegetarian</option>
+                        </select>
+                    </div>
+                </div>
+
+
+
+                <br>
+                <div class="row">
+
+                    <div class="col-xs-2">
+                        <label for="recipe_name">
+                           Calories In Recipe
+                        </label>
+                    </div>
+                    <div class="col-xs-6">
+                        <input class="form-control" type="text" placeholder="Enter Calories in Recipe " name="recipe_calories" id="recipe_calories">
+                    </div>
+
+                </div>
+                <br>
+                <div class="row">
+
+                    <div class="col-xs-2">
+                        <label for="recipe_name">
+                           Serving Size
+                        </label>
+                    </div>
+                    <div class="col-xs-6">
+                        <input class="form-control" type="text" placeholder="Enter Serving size " name="recipe_serving_size" id="recipe_serving_size">
+                    </div>
+
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-xs-2">
+                        <label for="recipe_description">
+                            Recipe Image Url
+                        </label>
+
+                    </div>
+
+                    <div class="col-xs-6">
+                        <input class="form-control" type="text" placeholder="Enter Recipe" id="recipe_image_url">
+                    </div>
+                </div>
+
+
+                <br>
+                <div class="row">
+
+                    <div class="col-xs-2">
+                        <label for="recipe_name">
+                           Recipe Description
+                        </label>
+                    </div>
+                    <div class="col-xs-6">
+                        <textarea class="form-control"  placeholder="Enter Description here " style="resize: none;"name="" id="recipe_description" cols="75" rows="20"></textarea>
+                    </div>
+
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                    <button class="btn btn-primary recipe_btn" type="button" onclick="submitRecipe()">ADD RECIPE</button>
+                </div>
+                
+
+
+                
+                
+            </div>
+        </div>
+        <div class="col-xs-2"></div>
+    </div>
+    
+</body>
+</html>

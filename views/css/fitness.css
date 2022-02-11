@@ -1,0 +1,33 @@
+.fitness_heading
+{
+        background-color:darkslateblue;
+        color:white;
+}
+.fitness_heading h1{
+        text-align: center;
+        padding-left:150px;
+}
+.fitness_heading h2{
+        padding-left:300px;
+}
+.fitness_h1
+{
+        text-align:center;
+}
+.select
+{
+        padding:8px 12px;
+        color:#333333;
+        background-color: #eeeeee;
+        border:1px solid #dddddd;
+        cursor:pointer;
+        border-radius: 5px;
+}
+.select:focus,.select:hover{
+        outline:none;
+        border:1px solid #bbbbbb;
+}
+.radio-label
+{
+        font-size:20px;;
+}
