@@ -15,7 +15,7 @@ app.use(express.urlencoded())
 app.use(express.static(path.join(__dirname,'views')));
 const {auth, requiresAuth}=require('express-openid-connect');
 const { resolve } = require('path');
-
+let user_id;
 
 const connection=mysql.createConnection({
         host:'localhost',
@@ -26,7 +26,7 @@ const connection=mysql.createConnection({
 })
 
 //let  user_email=null;
-let user_id=null;
+
 
 app.post("/signin",(req,res)=>
 {       
@@ -35,6 +35,7 @@ app.post("/signin",(req,res)=>
         const password=req.body.password
         console.log(email)
         console.log(password)
+        let new_user_id
 
         let sql="select * from register where email=? and password=?";
         connection.query(sql,[email,password],(err,result)=>
@@ -54,6 +55,13 @@ app.post("/signin",(req,res)=>
                        console.log("My Result ",result[0].user_id)
                         //console.log(user_id)
                         user_id=result[0].user_id
+
+                        //Temp s
+                        fs.writeFileSync("JSON/user_id.json",JSON.stringify({"user_id":user_id}))                        
+                        
+
+
+                        //Temp e
                         console.log(user_id)
                         res.send({"count":0})
 
@@ -61,6 +69,7 @@ app.post("/signin",(req,res)=>
                 else
                 {       //Sign In for Admin 
                         user_id=result[0].user_id
+                        fs.writeFileSync("JSON/user_id.json",JSON.stringify({"user_id":user_id}))  
                         console.log(user_id)
                         res.send({
                                 "count":2
@@ -687,6 +696,122 @@ app.get("/remove-token",(req,res)=>
 app.get("/calorie",authenticateToken,(req,res)=>
 {
         res.sendFile(path.resolve(__dirname,'views/html/calorie.html'))
+})//To Add Calories to the database
+app.post("/add-cin-db",(req,res)=>
+{               console.log(user_id)
+        let user_date=req.body.user_date
+        let user_time=req.body.user_time
+        let user_food_item=req.body.user_food_item
+        let user_calories=req.body.user_calories
+        let user_calories_type=req.body.user_calories_type
+        let mydata=fs.readFileSync("JSON/user_id.json")
+        let data=JSON.parse(mydata)
+
+        let u_id=data.user_id;
+        console.log(user_date)
+        console.log(u_id)
+        console.log(user_time)
+        console.log(user_food_item)
+        console.log(user_calories)
+        console.log(user_calories_type)
+
+        let sql
+        sql="select * from calorie where user_id=? and user_date=? and user_time =?";
+        connection.query(sql,[u_id,user_date,user_time],(err,result)=>
+        {
+                if(err) throw err;
+                if(result==""||result==null)
+                {
+                        sql='insert into calorie(user_id,user_date,user_time,user_calorie_type,user_calories,item_name) values(?,?,?,?,?,?)';
+                        connection.query(sql,[u_id,user_date,user_time,user_calories_type,user_calories,user_food_item],
+                                (er1,rs1)=>
+                                {
+                                        if(er1) throw er1;
+                                        console.log(rs1);
+
+                                })
+                }
+                else{
+                        sql=`update calorie set 
+                        user_id=?,user_date=?,user_time=?,user_calorie_type=?,user_calories=?,item_name=?
+                        where user_id=? and user_date=? and user_time=?`
+
+                        connection.query(sql,[u_id,user_date,user_time,user_calories_type,user_calories,user_food_item
+                        ,u_id,user_date,user_time],(er2,rs2)=>
+                        {
+                                if(er2) throw er2;
+                                console.log(rs2);
+
+                        })
+
+                }
+        })
+
+  res.sendStatus(201)
 })
 
+app.post("/add-cout-db",(req,res)=>
+{       console.log("cout db called")
+
+        let user_date=req.body.user_date
+        let user_time=req.body.user_time
+        let user_calorie_type=req.body.user_calorie_type
+        let user_calories=req.body.user_calories
+        let item_name=req.body.item_name
+        console.log(user_date)
+        console.log(user_time)
+        console.log(user_calorie_type)
+        console.log(user_calories)
+        console.log(item_name)
+
+        let mydata=fs.readFileSync("JSON/user_id.json")
+        let data=JSON.parse(mydata)
+        let u_id=data.user_id
+        let sql;
+        sql=`select * from calorie where user_id=? and user_date=? and user_time=? `;
+        connection.query(sql,[u_id,user_date,user_time],(er,rs)=>
+        {
+                if(er) throw er;
+                 if(rs==""||rs==null)
+                 {
+                        sql=`insert into calorie(user_id,user_date,user_time,user_calorie_type,user_calories,item_name)
+                         values(?,?,?,?,?,?)`;
+                         connection.query(sql,[u_id,user_date,user_time,user_calorie_type,user_calories,item_name],(er1,rs1)=>
+                         {
+                                 if(er1) throw er1;
+                                 console.log(rs1)
+                         })
+
+                 }
+                 else{
+                         sql=`update calorie set user_id=?,user_date=?,user_time=?,user_calorie_type=?,user_calories=?,item,name=?
+                          where user_id=? and user_date=? and user_time=?`
+                          connection.query(sql,[u_id,user_date,user_time,user_calorie_type,user_calories,item_name,u_id,user_date,user_time],(er2,rs2)=>
+                          {
+                                  if(er2) throw er2;
+                                  console.log(rs2)
+
+                          })
+
+                 }
+        })
+       res.sendStatus(201);
+       
+})
+app.post("/get-calorie-info",(req,res)=>
+{
+        let user_date=req.body.user_date
+        console.log(user_date)
+        //
+        let sql="select * from calorie where user_date=?"
+        connection.query(sql,[user_date],(er1,rs1)=>
+        {
+                if(er1) throw er1;
+                console.log(rs1)
+                res.send(rs1)
+                
+                
+
+        })
+})
 //Calorie handling ends Here
