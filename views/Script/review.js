@@ -7,6 +7,24 @@ function submit_review()
     {
         alert("Please write review before submitting")
     }
+    else
+    {
+        $.ajax({
+            url:"http://localhost:7000/submit-review",
+            type:"POST",
+            dataType:"json",
+            data:{
+                "user_review":review
+            },
+            async:false,
+            success:function(response)
+            {
+                console.log(response)
+                alert("Review Submit Successfully")
+            }
+            
+        })
+    }
 
 
 }

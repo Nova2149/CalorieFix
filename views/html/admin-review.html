@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/homepage.css">
+    <title>All Reviews</title>
+    <script>
+        $(function()
+        {
+            $.ajax({
+                url:"http://localhost:7000/get-review",
+                type:"GET",
+                dataType:"json",
+                async:false,
+                success:function(response)
+                {
+                    buildTable(response)
+                }
+            })
+        })
+        function buildTable(data)
+        {   
+            let table=document.getElementById("user_review")
+            table.innerHTML="";
+            let row='';
+            for(let i=0;i<data.length;i++)
+            {
+                row=`<tr>
+                    <td>${data[i].user_id}</td>
+                    <td>${data[i].first_name}</td>
+                    <td>${data[i].email}</td>
+                    <td>${data[i].user_date},${data[i].user_time}</td>
+                    <td>${data[i].user_review}</td>
+
+                    </tr>`
+                    table.innerHTML+=row;
+            }
+        }
+    </script>
+
+</head>
+<body>
+    <div class="row">
+        <!--Header for the page-->
+        <div class="container">
+            <div class="navbar">
+                <img src="https://t4.ftcdn.net/jpg/03/82/76/31/360_F_382763140_M7YORMuLlKz51zfhuYx6e6NgPINaqY12.jpg" class="logo">
+                <nav>
+                    <ul>
+                        
+                        <li>
+                            <a href="/adminuinfo">USER INFO</a>
+                            <a href="">ADD WORKOUT</a>
+                            <a href="">RECIPES</a>
+                            <a href="/admin-review">REVIEWS</a>
+                        </li>
+                    </ul>
+                </nav>
+    
+                <div class="home_button_nav_panel">
+                    <button class="btn btn-danger">Logout</button>
+                </div>
+    
+                
+    
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <div id="my-review">
+        <div class="row">
+            <div class="col-xs-5"></div>
+            <div class="col-xs-2">
+                <h1>USER REVIEWS</h1>
+            </div>
+            <div class="col-xs-5"></div>
+       
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-1"></div>
+            <div class="col-xs-10">
+                <table class="table">
+                    <tr>
+                        <th>User ID</th>
+                        <th>First Name</th>
+                        <th>Email</th>
+                        <th>Date Time</th>
+                        <th>Review</th>
+                     
+                    </tr>
+                    <tbody id="user_review"></tbody>
+                </table>
+
+            </div>
+            <div class="col-xs-1"></div>
+        
+        </div>
+
+    </div>
+    
+</body>
+</html>

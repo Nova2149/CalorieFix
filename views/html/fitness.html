@@ -216,10 +216,32 @@
                                 
                         </div>
                         <div class="row">
-                                <button class="btn btn-light">Add to Your Profile</button>
+                                <button class="btn btn-light"onclick=AddToProfile()>Add to Your Profile</button>
                         </div>`;
                         table.innerHTML+=row;
 
+
+               }
+               function AddToProfile()
+               {
+                       console.log("Add to profile clicked successfully")
+                       let user_bmi=document.getElementById("result_bmi").value
+                       let user_bmr=document.getElementById("result_bmr").value
+                       $.ajax({
+                               url:"http://localhost:7000/add-fitness-to-profile",
+                               type:"POST",
+                               dataType:"json",
+                               data:{
+                                       "user_bmi":user_bmi,
+                                       "user_bmr":user_bmr
+                               },
+                               async:false,
+                               success:function(response)
+                               {
+                                       console.log(response)
+                                       alert("Added to Profile Successfully")
+                               }
+                       })
 
                }
 
@@ -231,7 +253,7 @@
         
         </script>
 </head>
-]
+
 <body>
         <div class="row">
                 <div class="col-xs-1">

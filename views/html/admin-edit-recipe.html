@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/homepage.css">
+    <title>Document</title>
+    <style>
+            .grid-container
+    {
+        display: grid;
+        grid-template-columns: auto auto auto;
+    }
+    .grid-container>div{
+        border:0.5px solid black;
+    margin: 5px 5px 5px 5px;
+    }
+    .popup .overaly
+    {
+        position:fixed;
+        top:0px;
+        left:0px;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,0.7);
+        z-index: 1;
+        display: none;
+        border:2px solid black;
+    }
+    .popup .content
+    {
+        position:fixed;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%) scale(0);
+        background:#fff;
+        width: 500px;
+        height:800px;
+        z-index: 2;
+        text-align: center;
+        padding: 20px;
+        
+        border:2px solid black;
+    }
+    .popup .close-btn
+    {
+        position:absolute;
+        right:20px;
+        top:20px;
+        width:30px;
+        height:30px;
+        background:#222;
+        color:#fff;
+        font-size:25px;
+        font-weight: 600;
+        line-height: 30px;
+        text-align: center;
+        border-radius: 50%;
+    }
+    .popup.active .overlay{
+        display: block;
+
+    }
+    .popup.active  .content{
+        transition:all 300ms ease-in-out;
+        transform: translate(-50%,-50%) scale(1);
+    }
+    </style>
+    <script>
+        $(function()
+        {
+            $.ajax({
+                url:"http://localhost:7000/get-recipe-list",
+                type:"GET",
+                dataType:"json",
+                async:false,
+                success:function(response)
+                {
+                    console.log(response)
+                    buildTable(response)
+                }
+            })
+        })
+        function buildTable(data)
+        {   
+            let table=document.getElementById("all-recipes")
+            table.innerHTML=``
+
+            for(let i=0;i<data.length;i++)
+            {
+              let   row=`            
+            <div>
+            <div>
+            <p class="item">${data[i].recipe_name}</p>
+            
+            </div>
+            <div class="image_div">
+            <img src=${data[i].recipe_image_url} width="200px" height="200px">
+            </div>
+            <br>
+            <div class="btn_div">
+            <button class="btn btn-info" type="button" onclick="ViewRecipe('${data[i].recipe_name}')">Edit</button>
+            </div>
+            <br>
+            
+            </div>
+                `;
+                table.innerHTML+=row;
+            }
+            let row=`<div>
+            <div>
+            <p class="item">Add New Recipe</p>
+            
+            </div>
+            <div class="image_div">
+            <img src="https://www.pinclipart.com/picdir/middle/1-17259_list-add-clip-art-add-image-button-png.png" width="200px" height="200px">
+            </div>
+            <br>
+            <div class="btn_div">
+            <button class="btn btn-info" type="button" onclick="ViewRecipe('')">Add</button>
+            </div>
+            <br>
+            
+            </div>`;
+            table.innerHTML+=row;
+
+        }
+        function ViewRecipe(data)
+        {
+            document.getElementById("popup-1").classList.toggle("active");
+            let current_recipe=data
+            console.log(current_recipe)
+            $.ajax({
+                url:"http://localhost:7000/current-recipe",
+                type:"POST",
+                dataTupe:"json",
+                data:{
+                    "recipe_name":current_recipe
+                },
+                async:false,
+                success:function(response)
+                {
+                    console.log(response)
+                    buildRecipePopup(response)
+
+                }
+
+            })
+        }
+        function buildRecipePopup(data)
+        {   
+            if(data.length==0)
+            {
+                let table=document.getElementById("selected_recipe")
+            table.innerHTML=""
+            let row=`<div>
+                <h3>ADD NEW RECIPE</h3>
+                <label for="recipe_name">Recipe Name</label>
+                <input type="text"
+                 placeholder="Enter Recipe Name" 
+                 class="form-control"
+                 id="recipe_name" 
+                 size="50"/>
+                <br>
+                <label for="recipe_calories">Recipe Calories</label>
+                <input type="text"
+                 placeholder="Enter Calories" 
+                 class="form-control" 
+                 id="recipe_calories"
+                 size="50"/>  
+                <br>
+                <label for="recipe_serving_size">Recipe Serving Size</label>
+                <input type="text"
+                 placeholder="Enter Serving Size" 
+                 id="recipe_serving_size"
+                 class="form-control"/>
+                <br>
+                <label for="recipe_type">Recipe Type</label>
+                <select  name="recipe_type" id="recipe_type" class="form-control">
+                            <option value="vegan">Vegan</option>
+                            <option value="non_veg">Non Vegetarian</option>
+                            <option value="veg">Vegetarian</option>
+                </select>
+                <br>
+                <label for="recipe_image_url">Recipe Image Url</recipe>
+                <input type="text" 
+                 placeholder="Enter Image Url "
+                 class="form-control"
+                 id="recipe_image_url" 
+                 size="50"/>
+                <br>
+                <label for="reciep_description">Recipe Description</label>
+                <textarea class="form-control" placeholder="Enter Description here "
+                 style="resize: none;"name="" id="recipe_description" cols="20" rows="10">
+                
+                 </textarea>
+                 
+
+                <br>
+                <button class="btn btn-success" onclick="AddRecipe()">Add</button>
+
+        
+                
+                
+                </div>`
+                table.innerHTML+=row;
+            }
+            else{
+            let table=document.getElementById("selected_recipe")
+            table.innerHTML=""
+            let row=`<div>
+                <h1 id="update_recipe_name">${data[0].recipe_name}</h1>
+                <br>
+                <label for="recipe_calories">Recipe Calories</label>
+                <input type="text"
+                 value="${data[0].recipe_calories}"
+                  class="form-control" 
+                  id="update_recipe_calories"
+                  size="50"/>  
+                <br>
+                <label for="recipe_serving_size">Recipe Serving Size</label>
+                <input
+                 type="text"
+                  value="${data[0].recipe_serving_size}" 
+                  id="update_recipe_serving_size"
+                  class="form-control"/>
+                <br>
+                <label for="recipe_type">Recipe Type</label>
+                <select  name="recipe_type" id="update_recipe_type" class="form-control">
+                            <option value="vegan">Vegan</option>
+                            <option value="non_veg">Non Vegetarian</option>
+                            <option value="veg">Vegetarian</option>
+                </select>
+                <br>
+                <label for="recipe_image_url">Recipe Image Url</recipe>
+                <input 
+                type="text"
+                 value="${data[0].recipe_image_url}" 
+                 id="update_recipe_image_url" 
+                 class="form-control" size="50"/>
+                <br>
+                <label for="reciep_description">Recipe Description</label>
+                <textarea class="form-control" value="${data[0].recipe_description}"
+                 style="resize: none;"name="" id="update_recipe_description" cols="20" rows="10">
+                 ${data[0].recipe_description}
+                 </textarea>
+                 
+
+                <br>
+                <button class="btn btn-success" onclick="UpdateRecipe()">Update</button>
+
+        
+                
+                
+                </div>`
+                table.innerHTML+=row;
+            }
+
+        }
+        function UpdateRecipe()
+        {
+            console.log("Update Recipe Clicked")
+            console.log("Recipe Clicked Successfully")
+           
+            let recipeCalories=document.getElementById("update_recipe_calories").value
+            let recipeName=document.getElementById("update_recipe_name").value
+            let recipeServingSize=document.getElementById("update_recipe_serving_size").value
+            let recipeImageUrl=document.getElementById("update_recipe_image_url").value
+            let recipeType=document.getElementById("update_recipe_type").value
+            let recipeDescription=document.getElementById("update_recipe_serving_size").value;
+            let counter=0;
+         
+            if(recipeCalories===""||recipeCalories==null)
+            {
+                counter=1;
+               // alert("Missing Fields")
+            }
+            if(recipeType===""||recipeTyep==null)
+            {
+                counter=1;
+               // alert("Missing Fields")
+            }
+            if(recipeDescription===""||recipeDescription==null)
+            {
+                counter=1;
+               // alert("Missing Fields")
+            }
+            if(recipeServingSize===""||recipeServingSize==null)
+            {
+                counter=1;
+               // alert("Missing Fields")
+            }
+            if(recipeImageUrl===""||recipeImageUrl==null)
+            {
+                counter=1;
+                //alert("Missing Fields")
+
+            }
+            if(counter==1)
+            {
+                alert("Missing Fields")
+            }
+            if(counter==0){
+                $.ajax({
+                    url:"http://localhost:7000/update-recipe",
+                    type:"POST",
+                    dataType:"json",
+                    data:{
+                        "recipe_name":recipeName,
+                        "recipe_calories":recipeCalories,
+                        "recipe_type":recipeType,
+                        "recipe_description":recipeDescription,
+                        "recipe_serving_size":recipeServingSize,
+                        "recipe_image_url":recipeServingSize,
+                        
+
+                    },
+                    success:function(response)
+                    {
+                        console.log(response)
+                        alert("Recipe Updated Successfully")
+                    }
+                })
+                    
+               
+            }
+        }
+        function AddRecipe()
+        {
+            console.log("Add Recipe Clicked")
+            console.log("Recipe Clicked Successfully")
+            let recipeName=document.getElementById("recipe_name").value
+            let recipeCalories=document.getElementById("recipe_calories").value
+
+            let recipeServingSize=document.getElementById("recipe_serving_size").value
+            let recipeImageUrl=document.getElementById("recipe_image_url").value
+            let recipeType=document.getElementById("recipe_type").value
+            let recipeDescription=document.getElementById("recipe_serving_size").value;
+            let counter=0;
+            if(recipeName===""||recipeName==null){
+                counter=1;
+               // alert("Missing Fields")
+
+            }
+            if(recipeCalories===""||recipeCalories==null)
+            {
+                counter=1;
+               // alert("Missing Fields")
+            }
+            if(recipeType===""||recipeTyep==null)
+            {
+                counter=1;
+                //alert("Missing Fields")
+            }
+            if(recipeDescription===""||recipeDescription==null)
+            {
+                counter=1;
+                //alert("Missing Fields")
+            }
+            if(recipeServingSize===""||recipeServingSize==null)
+            {
+                counter=1;
+                //alert("Missing Fields")
+            }
+            if(recipeImageUrl===""||recipeImageUrl==null)
+            {
+                counter=1;
+                //alert("Missing Fields")
+
+            }
+            if(counter==1)
+            {
+                alert("Missing Fields")
+            }
+            if(counter==0)
+            {
+                $.ajax({
+                    url:"http://localhost:7000/add-recipe",
+                    type:"POST",
+                    dataType:"json",
+                    data:{
+                        "recipe_name":recipeName,
+                        "recipe_calories":recipeCalories,
+                        "recipe_type":recipeType,
+                        "recipe_description":recipeDescription,
+                        "recipe_serving_size":recipeServingSize,
+                        "recipe_image_url":recipeServingSize,
+                        
+
+                    },
+                    success:function(response)
+                    {
+                        console.log(response)
+                        alert("New Recipe Added Successfully")
+                    }
+                })
+            }
+
+
+
+        
+
+        }
+    </script>
+</head>
+<body>
+    <div class="popup" id="popup-1">
+        <div class="overlay"></div>
+            <div class="content">
+                <div class="close-btn" onclick="ViewRecipe()">&times;</div>
+                
+                <div id="selected_recipe"class="row">
+                    <h1>Hello World</h1>
+                </div>
+                  
+                    
+                      
+                 </div>  
+        </div>
+    
+    </div>
+    <div class="row">
+        <!--Header for the page-->
+        <div class="container">
+            <div class="navbar">
+                <img src="https://t4.ftcdn.net/jpg/03/82/76/31/360_F_382763140_M7YORMuLlKz51zfhuYx6e6NgPINaqY12.jpg" class="logo">
+                <nav>
+                    <ul>
+                        
+                        <li>
+                            <a href="/adminuinfo">USER INFO</a>
+                            <a href="">ADD WORKOUT</a>
+                            <a href="">RECIPES</a>
+                            <a href="/admin-review">REVIEWS</a>
+                        </li>
+                    </ul>
+                </nav>
+    
+                <div class="home_button_nav_panel">
+                    <button class="btn btn-danger">Logout</button>
+                </div>
+    
+                
+    
+            </div>
+        </div>
+    </div>
+    <br>
+    
+    <div class="row">
+        <div class="container">
+       <div class="grid-container" id="all-recipes"></div>
+       </div>
+        
+    </div>
+
+</body>
+</html>

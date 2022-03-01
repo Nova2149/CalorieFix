@@ -15,7 +15,7 @@ app.use(express.urlencoded())
 app.use(express.static(path.join(__dirname,'views')));
 const {auth, requiresAuth}=require('express-openid-connect');
 const { resolve } = require('path');
-let user_id;
+
 
 const connection=mysql.createConnection({
         host:'localhost',
@@ -201,9 +201,111 @@ app.get("/account-info",authenticateToken,(req,res)=>
 {
         res.sendFile(path.resolve(__dirname,'views/html/account_info.html'))
 })
+//To check if the old password of the user is correct or not
+app.post("/old-password", (req,res)=>
+{
+        let old_password=req.body.old_password
+        console.log(old_password)
+        let appData=fs.readFileSync('JSON/user_id.json')
+        let data=JSON.parse(appData)
+        let user_id=data.user_id
+        console.log(user_id)
+        let sql=`select password from register where user_id=? and password=?`
+          connection.query(sql, [user_id, old_password], (er1, rs1) => {
+                if (er1)
+                        throw er1;
+                console.log(rs1);
+                if (rs1 == null || rs1 == "") {
 
+                        res.send({ "count": 2 });
+                }
+                else {
+                        res.send({ "count": 0 });
+                }
+        })
+})
+//To Update the new password for the user
+app.post("/update-password",(req,res)=>
+{
+        let new_password=req.body.new_password
+        console.log(new_password)
+        let appData=fs.readFileSync('JSON/user_id.json')
+        let data=JSON.parse(appData)
+        let user_id=data.user_id
+        console.log(user_id)
+
+        let sql=`update register set password=? where user_id=?`
+        connection.query(sql,[new_password,user_id],(error,result)=>
+        {
+                if(error) throw error;
+                console.log(result)
+                res.send(result)
+        })
+     
+
+})
+//Add user bmi and bmr to the database
+app.post("/add-fitness-to-profile",(req,res)=>
+{
+        let user_bmi=req.body.user_bmi
+        let user_bmr=req.body.user_bmr
+        console.log(user_bmi)
+        console.log(user_bmr)
+
+        let appData=fs.readFileSync('JSON/user_id.json')
+        let data=JSON.parse(appData)
+        let user_id=data.user_id
+        console.log(user_id)
+
+        let sql=`select * from healthmetrices where user_id=? and bmi=? and bmr=?`
+        connection.query(sql,[user_id,user_bmi,user_bmr],(er,rs)=>
+        {
+                if(er) throw er;
+                if(rs==""||rs==null)
+                {
+                        sql=`insert into healthmetrices(user_id,bmi,bmr) values(?,?,?)`
+                        connection.query(sql,[user_id,user_bmi,user_bmr],(er1,rs1)=>
+                        {
+                                if(er1) throw er1;
+                                console.log(rs1)
+
+                        })
+                }
+                else
+                {
+                        sql=`update healthmetrices set bmi=?,bmr=? where user_id=?`
+                        connection.query(sql,[user_bmi,user_bmr,user_id],(er2,rs2)=>
+                        {
+                                if(er2) throw er2;
+                                console.log(rs2);
+
+                        })
+                }
+        })
+        res.sendStatus(200)
+})
+app.get("/get-fitness-profile",(req,res)=>
+{
+        let appData=fs.readFileSync('JSON/user_id.json')
+        let data=JSON.parse(appData)
+        let user_id=data.user_id
+        console.log(user_id)
+
+        let sql=`select * from healthmetrices where user_id=?`
+        connection.query(sql,[user_id],(er,rs)=>
+        {
+                if(er) throw er;
+                console.log(rs)
+                res.send(rs)
+        })
+      
+})
 app.get("/account-info-all",(req,res)=>
 {       
+        const appData=fs.readFileSync('JSON/user_id.json')
+        const data=JSON.parse(appData)
+        console.log(data)
+        let user_id=data.user_id
         let sql=`select * from register where user_id=?`
         connection.query(sql,[user_id],(err,result)=>
         {
@@ -220,16 +322,21 @@ app.get("/account-info-all",(req,res)=>
 })
 //Update Account Info
 app.post("/update-account-info-all",(req,res)=>
-{
+{       
+        let appData=fs.readFileSync('JSON/user_id.json')
+        let data=JSON.parse(appData)
+        let user_id=data.user_id
+        console.log(user_id)
         console.log(req.body)
        const first_name=req.body.first_name
        const last_name=req.body.last_name
        const email=req.body.email
        const phone=req.body.phone
+       const address=req.body.address
        const postal_code=req.body.postal_code
-       let sql=`update register set first_name=?,last_name=?,email=?,phone=?,postal_code=? where user_id=?`;
+       let sql=`update register set first_name=?,last_name=?,email=?,address=?,phone=?,postal_code=? where user_id=?`;
 
-       connection.query(sql,[first_name,last_name,email,phone,postal_code,user_id],(err,result)=>
+       connection.query(sql,[first_name,last_name,email,address,phone,postal_code,user_id],(err,result)=>
        {
                 if(err)
                 {
@@ -473,6 +580,42 @@ app.post("/add-recipe",(req,res)=>
                 "recipe_description":recipe_description
         })
 
+        fs.writeFileSync('JSON/recipe.json',JSON.stringify(final_Array))
+
+}) 
+
+app.post("/update-recipe",(req,res)=>
+{
+        console.log(req.body)
+        const recipe_name=req.body.recipe_name;
+        const  recipe_calories=req.body.recipe_calories
+        const recipe_description=req.body.recipe_description
+        const recipe_serving_size=req.body.recipe_serving_size
+        const recipe_image_url=req.body.recipe_image_url
+        console.log(recipe_name,recipe_calories,recipe_description,recipe_serving_size,recipe_image_url)
+        const my_data=fs.readFileSync("JSON/recipe.json")
+        const data=JSON.parse(my_data)
+
+        let final_Array=[]
+        for(let i=0;i<data.length;i++)
+        {
+               if(data[i].recipe_name==recipe_name)
+               {
+                       final_Array.push({
+                        "recipe_name":recipe_name,
+                        "recipe_calories":recipe_calories,
+                        "recipe_serving_size":recipe_serving_size,
+                        "recipe_image_url":recipe_image_url,
+                        "recipe_type":recipe_type,
+                        "recipe_description":recipe_description
+
+                       })
+               }
+               final_Array.push(data[i])
+
+        }
+        fs.writeFileSync('JSON/recipe.json',JSON.stringify(final_Array))
+       
 })
 app.get("/vegan-recipe",(req,res)=>
 {
@@ -814,4 +957,79 @@ app.post("/get-calorie-info",(req,res)=>
 
         })
 })
+
+
 //Calorie handling ends Here
+
+//Review Handling starts here
+app.post("/submit-review",(req,res)=>
+{
+        let user_review=req.body.user_review
+        console.log(user_review)
+        let appData=fs.readFileSync('JSON/user_id.json')
+        let data=JSON.parse(appData)
+        let user_id=data.user_id
+        console.log(user_id)
+
+        //Date
+        let today = new Date().toISOString().slice(0, 10)
+        console.log(today)
+        //Time
+        let time=new Date().toLocaleTimeString()
+        console.log(time)
+        let sql=`insert into review(user_id,user_date,user_time,user_review) values(?,curdate(),current_time(),?);`
+        connection.query(sql,[user_id,user_review],(er,rs)=>
+        {
+                if(er) throw er;
+                console.log(rs)
+        })
+        res.sendStatus(200)
+})
+
+app.get("/get-review",(req,res)=>
+{
+        let sql=`select register.user_id,register.first_name,register.email,review.user_date,review.user_time,review.user_review from register inner join
+          review where register.user_id=review.user_id;`
+        connection.query(sql,(error,result)=>
+        {
+                if(error) throw error;
+                console.log(result)
+                res.send(result)
+        })
+})
+
+
+app.get("/admin-review",(req,res)=>
+{
+        res.sendFile(path.resolve(__dirname,'views/html/admin-review.html'))
+})
+//Review HAndling ends here
+
+app.get("/edit-recipe",(req,res)=>
+{
+        res.sendFile(path.resolve(__dirname,'views/html/admin-edit-recipe.html'))
+})
+app.get("/get-recipe-list",(req,res)=>
+{
+        let appData=fs.readFileSync('JSON/recipe.json')
+        let data=JSON.parse(appData)
+        res.send(data)
+
+})
+app.post("/current-recipe",(req,res)=>
+{
+        let current_recipe=req.body.recipe_name
+        let appData=fs.readFileSync('JSON/recipe.json')
+        let data=JSON.parse(appData)
+        console.log(data)
+        let final_Array=[]
+
+        for(let i=0;i<data.length;i++)
+        {
+                if(data[i].recipe_name==current_recipe)
+                {
+                        final_Array.push(data[i])
+                }
+        }
+        res.send(final_Array)
+})
