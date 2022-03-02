@@ -267,11 +267,11 @@
             console.log("Recipe Clicked Successfully")
            
             let recipeCalories=document.getElementById("update_recipe_calories").value
-            let recipeName=document.getElementById("update_recipe_name").value
+            let recipeName=document.querySelector("#update_recipe_name").textContent
             let recipeServingSize=document.getElementById("update_recipe_serving_size").value
             let recipeImageUrl=document.getElementById("update_recipe_image_url").value
             let recipeType=document.getElementById("update_recipe_type").value
-            let recipeDescription=document.getElementById("update_recipe_serving_size").value;
+            let recipeDescription=document.getElementById("update_recipe_description").value;
             let counter=0;
          
             if(recipeCalories===""||recipeCalories==null)
@@ -279,7 +279,7 @@
                 counter=1;
                // alert("Missing Fields")
             }
-            if(recipeType===""||recipeTyep==null)
+            if(recipeType===""||recipeType==null)
             {
                 counter=1;
                // alert("Missing Fields")
@@ -315,19 +315,21 @@
                         "recipe_type":recipeType,
                         "recipe_description":recipeDescription,
                         "recipe_serving_size":recipeServingSize,
-                        "recipe_image_url":recipeServingSize,
+                        "recipe_image_url":recipeImageUrl,
                         
 
                     },
                     success:function(response)
                     {
                         console.log(response)
-                        alert("Recipe Updated Successfully")
+                        
                     }
                 })
-                    
-               
+                alert("Recipe Updated Successfully")    
+               //Testing statement below
+            document.getElementById("popup-1").classList.toggle("active");
             }
+            
         }
         function AddRecipe()
         {
@@ -339,7 +341,7 @@
             let recipeServingSize=document.getElementById("recipe_serving_size").value
             let recipeImageUrl=document.getElementById("recipe_image_url").value
             let recipeType=document.getElementById("recipe_type").value
-            let recipeDescription=document.getElementById("recipe_serving_size").value;
+            let recipeDescription=document.getElementById("recipe_description").value;
             let counter=0;
             if(recipeName===""||recipeName==null){
                 counter=1;
@@ -351,7 +353,7 @@
                 counter=1;
                // alert("Missing Fields")
             }
-            if(recipeType===""||recipeTyep==null)
+            if(recipeType===""||recipeType==null)
             {
                 counter=1;
                 //alert("Missing Fields")
@@ -388,16 +390,19 @@
                         "recipe_type":recipeType,
                         "recipe_description":recipeDescription,
                         "recipe_serving_size":recipeServingSize,
-                        "recipe_image_url":recipeServingSize,
+                        "recipe_image_url":recipeImageUrl,
                         
 
                     },
                     success:function(response)
                     {
                         console.log(response)
-                        alert("New Recipe Added Successfully")
+                       //alert("New Recipe Added Successfully")
                     }
                 })
+                alert("New Recipe Added !!")    
+               //Testing statement below
+            document.getElementById("popup-1").classList.toggle("active");
             }
 
 

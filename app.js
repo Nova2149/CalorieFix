@@ -560,6 +560,7 @@ app.post("/add-recipe",(req,res)=>
         const recipe_description=req.body.recipe_description
         const recipe_serving_size=req.body.recipe_serving_size
         const recipe_image_url=req.body.recipe_image_url
+        const recipe_type=req.body.recipe_type
 
         console.log(recipe_name,recipe_calories,recipe_description,recipe_serving_size,recipe_image_url)
         const my_data=fs.readFileSync("JSON/recipe.json")
@@ -592,6 +593,7 @@ app.post("/update-recipe",(req,res)=>
         const recipe_description=req.body.recipe_description
         const recipe_serving_size=req.body.recipe_serving_size
         const recipe_image_url=req.body.recipe_image_url
+        const recipe_type=req.body.recipe_type
         console.log(recipe_name,recipe_calories,recipe_description,recipe_serving_size,recipe_image_url)
         const my_data=fs.readFileSync("JSON/recipe.json")
         const data=JSON.parse(my_data)
@@ -611,7 +613,9 @@ app.post("/update-recipe",(req,res)=>
 
                        })
                }
+               else{
                final_Array.push(data[i])
+               }
 
         }
         fs.writeFileSync('JSON/recipe.json',JSON.stringify(final_Array))
