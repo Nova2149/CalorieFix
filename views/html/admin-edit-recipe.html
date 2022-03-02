@@ -39,7 +39,7 @@
         transform: translate(-50%,-50%) scale(0);
         background:#fff;
         width: 500px;
-        height:800px;
+        height:650px;
         z-index: 2;
         text-align: center;
         padding: 20px;
@@ -158,7 +158,7 @@
                 let table=document.getElementById("selected_recipe")
             table.innerHTML=""
             let row=`<div>
-                <h3>ADD NEW RECIPE</h3>
+               
                 <label for="recipe_name">Recipe Name</label>
                 <input type="text"
                  placeholder="Enter Recipe Name" 
@@ -195,17 +195,12 @@
                 <br>
                 <label for="reciep_description">Recipe Description</label>
                 <textarea class="form-control" placeholder="Enter Description here "
-                 style="resize: none;"name="" id="recipe_description" cols="20" rows="10">
+                 style="resize: none;"name="" id="recipe_description" cols="20" rows="5">
                 
                  </textarea>
-                 
 
                 <br>
                 <button class="btn btn-success" onclick="AddRecipe()">Add</button>
-
-        
-                
-                
                 </div>`
                 table.innerHTML+=row;
             }
@@ -236,7 +231,7 @@
                             <option value="veg">Vegetarian</option>
                 </select>
                 <br>
-                <label for="recipe_image_url">Recipe Image Url</recipe>
+                <label for="recipe_image_url">Recipe Image Url</label>
                 <input 
                 type="text"
                  value="${data[0].recipe_image_url}" 
@@ -245,17 +240,11 @@
                 <br>
                 <label for="reciep_description">Recipe Description</label>
                 <textarea class="form-control" value="${data[0].recipe_description}"
-                 style="resize: none;"name="" id="update_recipe_description" cols="20" rows="10">
+                 style="resize: none;"name="" id="update_recipe_description" cols="20" rows="5">
                  ${data[0].recipe_description}
                  </textarea>
-                 
-
-                <br>
                 <button class="btn btn-success" onclick="UpdateRecipe()">Update</button>
 
-        
-                
-                
                 </div>`
                 table.innerHTML+=row;
             }
@@ -429,20 +418,24 @@
     
     </div>
     <div class="row">
-        <!--Header for the page-->
         <div class="container">
             <div class="navbar">
                 <img src="https://t4.ftcdn.net/jpg/03/82/76/31/360_F_382763140_M7YORMuLlKz51zfhuYx6e6NgPINaqY12.jpg" class="logo">
                 <nav>
-                    <ul>
-                        
-                        <li>
-                            <a href="/adminuinfo">USER INFO</a>
-                            <a href="">ADD WORKOUT</a>
-                            <a href="">RECIPES</a>
-                            <a href="/admin-review">REVIEWS</a>
-                        </li>
-                    </ul>
+                   <ul>
+                       <li>
+                           <a href="/adminuinfo">USERINFO</a>
+                       </li>
+                       <li>
+                           <a href="/add-workout">WORKOUTS</a>
+                       </li>
+                       <li>
+                           <a href="/edit-recipe">RECIPES</a>
+                       </li>
+                       <li>
+                           <a href="/admin-review">REVIEWS</a>
+                       </li>
+                   </ul>
                 </nav>
     
                 <div class="home_button_nav_panel">
@@ -454,6 +447,7 @@
             </div>
         </div>
     </div>
+
     <br>
     
     <div class="row">

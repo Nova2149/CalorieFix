@@ -257,7 +257,7 @@ app.post("/add-fitness-to-profile",(req,res)=>
         let user_id=data.user_id
         console.log(user_id)
 
-        let sql=`select * from healthmetrices where user_id=? and bmi=? and bmr=?`
+        let sql=`select * from healthmetrices where user_id=?`;
         connection.query(sql,[user_id,user_bmi,user_bmr],(er,rs)=>
         {
                 if(er) throw er;
@@ -273,8 +273,8 @@ app.post("/add-fitness-to-profile",(req,res)=>
                 }
                 else
                 {
-                        sql=`update healthmetrices set bmi=?,bmr=? where user_id=?`
-                        connection.query(sql,[user_bmi,user_bmr,user_id],(er2,rs2)=>
+                        sql=`update healthmetrices set user_id=?,bmi=?,bmr=? where user_id=?`
+                        connection.query(sql,[user_id,user_bmi,user_bmr,user_id],(er2,rs2)=>
                         {
                                 if(er2) throw er2;
                                 console.log(rs2);
@@ -369,6 +369,11 @@ app.get("/fitness",authenticateToken,(req,res)=>
 app.get("/workout",authenticateToken,(req,res)=>
 {
         res.sendFile(path.resolve(__dirname,'views/html/workout.html'))
+})
+
+app.get("/add-workout",(req,res)=>
+{
+        res.sendFile(path.resolve(__dirname,'views/html/workout-admin.html'))
 })
 
 
@@ -717,8 +722,9 @@ app.post("/removeUser",(req,res)=>
                         throw err;
                 }
                 console.log(res)
-                res.send(null)
+               
         })
+        res.sendStatus(200)
 
 })
 app.get("/getAllUsers",(req,res)=>
@@ -845,7 +851,7 @@ app.get("/calorie",authenticateToken,(req,res)=>
         res.sendFile(path.resolve(__dirname,'views/html/calorie.html'))
 })//To Add Calories to the database
 app.post("/add-cin-db",(req,res)=>
-{               console.log(user_id)
+{             
         let user_date=req.body.user_date
         let user_time=req.body.user_time
         let user_food_item=req.body.user_food_item

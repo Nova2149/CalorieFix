@@ -45,9 +45,10 @@
                         </button>
                     </td>
                     </tr>`
-                    table.innerHTML+=row;
+                  
 
             }
+            table.innerHTML+=row;
         }
         function removeUser(data)
         {
@@ -63,28 +64,35 @@
                 success:function(response)
                 {
                     console.log(response)
+                    alert("User Removed Successfully")
                 }
                 
             })
+            window.location.reload()
+
         }
     </script>
 </head>
 <body>
     <div class="row">
-        <!--Header for the page-->
         <div class="container">
             <div class="navbar">
                 <img src="https://t4.ftcdn.net/jpg/03/82/76/31/360_F_382763140_M7YORMuLlKz51zfhuYx6e6NgPINaqY12.jpg" class="logo">
                 <nav>
-                    <ul>
-                        
-                        <li>
-                            <a href="">USER INFO</a>
-                            <a href="">ADD WORKOUT</a>
-                            <a href="">RECIPES</a>
-                            <a href="">REVIEWS</a>
-                        </li>
-                    </ul>
+                   <ul>
+                       <li>
+                           <a href="/adminuinfo">USERINFO</a>
+                       </li>
+                       <li>
+                           <a href="/add-workout">WORKOUTS</a>
+                       </li>
+                       <li>
+                           <a href="/edit-recipe">RECIPES</a>
+                       </li>
+                       <li>
+                           <a href="/admin-review">REVIEWS</a>
+                       </li>
+                   </ul>
                 </nav>
     
                 <div class="home_button_nav_panel">
@@ -96,6 +104,7 @@
             </div>
         </div>
     </div>
+
 
     <br><br>
     <div class="row">

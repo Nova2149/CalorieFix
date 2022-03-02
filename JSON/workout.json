@@ -1,61 +1,58 @@
-  [ {
+[
+    {
         "Workout_Name": "Sitting",
         "Workout_Calories": "65",
-        "Workout_Time_Period":1,
-        "Workout_Image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6U7rSVMVnRwj7xYZfO3snGu-w1acDCqKZJg&usqp=CAU",
-        "Workout_Description":"The calories burned during sitting depends on the respective weight"
+        "Workout_Time_Period": 1,
+        "Workout_Image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6U7rSVMVnRwj7xYZfO3snGu-w1acDCqKZJg&usqp=CAU",
+        "Workout_Description": "The calories burned during sitting depends on the respective weight"
     },
     {
-            "Workout_Name": "Walking",
-            "Workout_Calories": "210",
-            "Workout_Time_Period":1,
-            "Workout_Image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnTRlIMo3of6b5JDuBq8EWgcBHNk1UC7-1bw&usqp=CAU",
-             "Workout_Description":"Walking is a low intensity exercise requiring no equipments."
+        "Workout_Name": "Walking",
+        "Workout_Calories": "210",
+        "Workout_Time_Period": 1,
+        "Workout_Image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnTRlIMo3of6b5JDuBq8EWgcBHNk1UC7-1bw&usqp=CAU",
+        "Workout_Description": "Walking is a low intensity exercise requiring no equipments."
     },
     {
         "Workout_Name": "Situps",
         "Workout_Calories": "180",
-        "Workout_Time_Period":1,
-        "Workout_Image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTI1MGQahMrC0l-yOsGsKCY9e2_uGp3-ECoQ&usqp=CAU",
-          "Workout_Description":"Situps train the abdomen region of the body. At a moderate pace it burns upto 6 to 8 calories per minute."
-},
-{
-    "Workout_Name": "Jumping Jacks",
-    "Workout_Calories": "480",
-    "Workout_Time_Period":1,
-    "Workout_Image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMp2l928UtQX3EBJWXHLIDwOyo5L__NZ8l9w&usqp=CAU",
-      "Workout_Description":"Jumping jacks mainly involve aerobic work working the entire body focusing movement of legs muscles. Depending on the rate of performance and relative weight it can burn 6 to 9 calories per minute."
-},{
-"Workout_Name": "Rowing machine",
-"Workout_Calories": "520",
-"Workout_Time_Period":1,
-"Workout_Image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMzIyMXK7MpKdHmjQa5wvkWpaWWvBmgvoL3g&usqp=CAU",
- "Workout_Description":"Rowing involves a pulling motion transferred from a push by the legs it targets the posterior chain while working endurance.Depending on the intensity it can burn significant amount of calories."
-
-
-},
-{
-"Workout_Name": "Push Ups",
-"Workout_Calories": "420",
-"Workout_Time_Period":1,
-"Workout_Image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnwOTmk33SkczMG1lGH228kjRuRKFjw-bHlA&usqp=CAU",
-"Workout_Description":"Push up involves upper body muscle and stability of core. On a moderate pace it burns good amount of calories."
-
-},
-{
-"Workout_Name": "Boxing",
-"Workout_Calories": "670",
-"Workout_Time_Period":1,
-"Workout_Image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq0p6Aby7jvoNNFISCTuxUCBecmNu8I1bs-g&usqp=CAU",
-"Workout_Description":"An full body aerbic exercise which requires high intensity workouts. Burning a lots of calories even on a moderate rate."
-},
-
-{
-"Workout_Name": "Jumping Rope",
-"Workout_Calories": "744",
-"Workout_Time_Period":1,
-"Workout_Image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzCPiji78fjMYIl_CqlSUDHukZcCcKkNVrBnhielEJNbjlzBv5T7rBN00XD2KXss9eXtM&usqp=CAU",
-"Workout_Description":"It involves skipping a rope while maintaining a certain rhythm it mainly involves the muscles in the legs. It burns lots of calories."}
-
-
-  ]
+        "Workout_Time_Period": 1,
+        "Workout_Image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTI1MGQahMrC0l-yOsGsKCY9e2_uGp3-ECoQ&usqp=CAU",
+        "Workout_Description": "Situps train the abdomen region of the body. At a moderate pace it burns upto 6 to 8 calories per minute."
+    },
+    {
+        "Workout_Name": "Jumping Jacks",
+        "Workout_Calories": "480",
+        "Workout_Time_Period": 1,
+        "Workout_Image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMp2l928UtQX3EBJWXHLIDwOyo5L__NZ8l9w&usqp=CAU",
+        "Workout_Description": "Jumping jacks mainly involve aerobic work working the entire body focusing movement of legs muscles. Depending on the rate of performance and relative weight it can burn 6 to 9 calories per minute."
+    },
+    {
+        "Workout_Name": "Rowing machine",
+        "Workout_Calories": "520",
+        "Workout_Time_Period": 1,
+        "Workout_Image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMzIyMXK7MpKdHmjQa5wvkWpaWWvBmgvoL3g&usqp=CAU",
+        "Workout_Description": "Rowing involves a pulling motion transferred from a push by the legs it targets the posterior chain while working endurance.Depending on the intensity it can burn significant amount of calories."
+    },
+    {
+        "Workout_Name": "Push Ups",
+        "Workout_Calories": "420",
+        "Workout_Time_Period": 1,
+        "Workout_Image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnwOTmk33SkczMG1lGH228kjRuRKFjw-bHlA&usqp=CAU",
+        "Workout_Description": "Push up involves upper body muscle and stability of core. On a moderate pace it burns good amount of calories."
+    },
+    {
+        "Workout_Name": "Boxing",
+        "Workout_Calories": "670",
+        "Workout_Time_Period": 1,
+        "Workout_Image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq0p6Aby7jvoNNFISCTuxUCBecmNu8I1bs-g&usqp=CAU",
+        "Workout_Description": "An full body aerbic exercise which requires high intensity workouts. Burning a lots of calories even on a moderate rate."
+    },
+    {
+        "Workout_Name": "Jumping Rope",
+        "Workout_Calories": "744",
+        "Workout_Time_Period": 1,
+        "Workout_Image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzCPiji78fjMYIl_CqlSUDHukZcCcKkNVrBnhielEJNbjlzBv5T7rBN00XD2KXss9eXtM&usqp=CAU",
+        "Workout_Description": "It involves skipping a rope while maintaining a certain rhythm it mainly involves the muscles in the legs. It burns lots of calories."
+    }
+]

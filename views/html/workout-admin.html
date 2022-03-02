@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Workout </title>
+    <link rel="stylesheet" href="../css/homepage.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -54,10 +55,15 @@
                     success:function(response)
                     {
                         console.log(response)
+                         alert("New Workout Added Successfully!!");
+
 
                     }
 
                 })
+
+                window.location.reload();
+
             }
             else{
                 //Do Nothing
@@ -66,14 +72,56 @@
             
         }
     </script>
+    <style>
+        .main_heading
+        {
+            text-align: center;
+            margin-left:320px;
+        }
+    </style>
     </head>
     <body>
-    <div class="row">
+        <!--Temp Code Starts-->
+
+        <div class="row">
+            <div class="container">
+                <div class="navbar">
+                    <img src="https://t4.ftcdn.net/jpg/03/82/76/31/360_F_382763140_M7YORMuLlKz51zfhuYx6e6NgPINaqY12.jpg" class="logo">
+                    <nav>
+                       <ul>
+                           <li>
+                               <a href="/adminuinfo">USERINFO</a>
+                           </li>
+                           <li>
+                               <a href="/add-workout">WORKOUTS</a>
+                           </li>
+                           <li>
+                               <a href="/edit-recipe">RECIPES</a>
+                           </li>
+                           <li>
+                               <a href="/admin-review">REVIEWS</a>
+                           </li>
+                       </ul>
+                    </nav>
+        
+                    <div class="home_button_nav_panel">
+                        <button class="btn btn-danger">Logout</button>
+                    </div>
+        
+                    
+        
+                </div>
+            </div>
+        </div>
+
+
+        <!--Temp Code Ends-->
+        <div class="row">
         <div class="col-xs-2"></div>
         <div class="col-xs-8">
             <div class="container">
                <div class="row">
-                   <h1>ADD NEW WORKOUT</h1>
+                   <h1 class="main_heading">ADD NEW WORKOUT</h1>
                </div>
                <br>
 
