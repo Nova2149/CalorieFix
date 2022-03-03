@@ -8,8 +8,22 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../css/homepage.css">
+    <script src="../Script/Logout.js"></script>
     <title>User Info</title>
-
+    <style>
+        .unblock{
+            background-color: #097969;
+            color:whitesmoke;
+            border-radius: 5px;
+            padding:6px;
+        }
+        .block{
+            background-color:#0047AB ;
+            color:whitesmoke;
+            border-radius: 5px;
+            padding: 6px;
+        }
+    </style>
     <script>
         $(function()
         {
@@ -34,10 +48,20 @@
                 row+=`<tr>
                     <td>${data[i].first_name}</td>
                     <td>${data[i].last_name}</td>
-                    <td>${data[i].email}</td>
+                    <td class="current_email">${data[i].email}</td>
                     <td>${data[i].phone}</td>
                     <td>${data[i].address}</td>
                     <td>${data[i].postal_code}</td>
+                    <td>`
+                    if(data[i].current_status==0)
+                    {
+                        row+=`<button  id="blockButton" class="unblock" value=${i} onclick="blockUser(this.value)">Unblock</button>`
+                    }
+                    else
+                    {
+                        row+=`<button  id="blockButton" class="block" value=${i}  onclick="blockUser(this.value)">Block</button>`
+                    }
+                    row+=`</td>
                     <td>
                         <button class="btn btn-danger" type="submit"
                         onclick="removeUser('${data[i].email}')">
@@ -45,10 +69,46 @@
                         </button>
                     </td>
                     </tr>`
+                 
+                    
                   
 
             }
-            table.innerHTML+=row;
+           table.innerHTML+=row;
+        }
+        function blockUser(data)
+        {   
+            let email=document.querySelectorAll(".current_email")[data].innerHTML
+            console.log(email)
+
+            console.log("Inside Block User")
+            console.log(data)
+            $.ajax({
+                url:"http://localhost:7000/blockUser",
+                type:"POST",
+                datType:"json",
+                data:{
+                    "email":email
+                },
+                async:false,
+                success:function(response)
+                {
+                    console.log(response)
+
+                }
+            })
+            let buttonText=document.querySelectorAll("#blockButton")[data];
+            if(buttonText.innerHTML === "Block")
+            {
+                buttonText.innerHTML = "Unblock"
+                buttonText.classList.remove("block")
+                buttonText.classList.add("unblock")
+            }
+            else{
+                buttonText.innerHTML="Block"
+                buttonText.classList.remove("unblock")
+                buttonText.classList.add("block")
+            }
         }
         function removeUser(data)
         {
@@ -96,7 +156,7 @@
                 </nav>
     
                 <div class="home_button_nav_panel">
-                    <button class="btn btn-danger">Logout</button>
+                    <button class="btn btn-danger" onclick="LogoutUser()">Logout</button>
                 </div>
     
                 

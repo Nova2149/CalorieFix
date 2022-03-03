@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../Script/Logout.js"></script>
     <style>
         .workout_name
         {
@@ -149,17 +150,19 @@
             <nav>
                 <ul>
                     <li>
-                        <a href="">SEARCH FOOD</a>
-                        <a href="">CALCULATE FITNESS</a>
-                        <a href="">RECIPES</a>
-                        <a href="">ACCOUNT INFO</a>
-                        <a href="">REVIEWS</a>
+                        <a href="/nutrition">SEARCH FOOD</a>
+                        <a href="/fitness">CALCULATE FITNESS</a>
+                        <a href="/calorie">TRACK CALORIES</a>
+                        <a href="/workout">WORKOUT</a>
+                        <a href="/recipe">RECIPES</a>
+                        <a href="/account-info">ACCOUNT INFO</a>
+                        <a href="/review">REVIEWS</a>
                     </li>
                 </ul>
             </nav>
         </div>
         <div class="col-xs-2">
-            <button class="btn btn-danger">Logout</button>
+            <button class="btn btn-danger" onclick="LogoutUser()">Logout</button>
         </div>
     </div>
 

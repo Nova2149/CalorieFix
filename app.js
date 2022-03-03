@@ -42,7 +42,7 @@ app.post("/signin",(req,res)=>
         {
                 if(err) throw err;
                 console.log(result)
-                if(result==null||result=="")
+                if(result==null||result==""||result[0].current_status==0)
                 {       
                         //Sign In Unsuccessful
                         console.log("Sign In Unsuccessful")
@@ -107,8 +107,8 @@ app.post("/register",(req,res)=>
                 if(result==""||result==null)
                 {       
                         console.log(result)
-                      let sql=`insert into register(first_name,last_name,email,password,phone,address,postal_code)
-                      values(?,?,?,?,?,?,?)` 
+                      let sql=`insert into register(first_name,last_name,email,password,phone,address,postal_code,current_status)
+                      values(?,?,?,?,?,?,?,1)` 
                       connection.query(sql,
                         [
                                 data.first_name,
@@ -148,18 +148,21 @@ app.get("/register",(req,res)=>
        res.sendFile(path.resolve(__dirname,'views/html/register.html'))
 })
 
-// app.get("/getusername",(req,res)=>
-// {       
-//        let my_user_id=user_id
-//       connection.query("select * from register where user_id=?",user_id,(err,result)=>
-//       {
-//               if(err) throw err;
-//               console.log(result)
-//               res.send(result)
+app.get("/getusername",(req,res)=>
+{       
+      let appData=fs.readFileSync('JSON/user_id.json')
+      let data=JSON.parse(appData)
+      let user_id=data.user_id
+      console.log(user_id)
+      connection.query("select * from register where user_id=?",user_id,(err,result)=>
+      {
+              if(err) throw err;
+              console.log(result)
+              res.send(result)
 
-//       })
+      })
 
-// })
+})
 
 //nutrition page starts here
 app.get("/nutrition",authenticateToken,(req,res)=>
@@ -1042,4 +1045,45 @@ app.post("/current-recipe",(req,res)=>
                 }
         }
         res.send(final_Array)
+})
+app.post("/blockUser",(req,res)=>
+{
+        let email=req.body.email
+        console.log(email)
+
+        let sql='select * from register where email=?';
+        connection.query(sql,[email],(er,rs)=>
+        {       
+                if(er) throw er;
+                console.log(rs)
+                console.log(rs[0].current_status)
+                //1 is considered true whereas the 0 is considered as false
+                
+                if(rs[0].current_status==1)
+                {
+                        //User is unblocked and we have to block it
+                        sql=`update register set current_status=false where email=?`;
+                        connection.query(sql,[email],(er1,rs1)=>
+                        {       
+                                if(er1) throw er1;
+                                console.log(rs1);
+
+
+                        })
+                }
+                else{
+                        //User is bloacked and we have to unblock it
+                        sql=`update register set current_status=true where email=?`;
+                        connection.query(sql,[email],(er2,rs2)=>
+                        {       
+                                if(er2) throw er2;
+
+                                console.log(rs2);
+
+                        })
+                }
+                res.sendStatus(200)
+               
+        })
+
 })
